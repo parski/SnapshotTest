@@ -1,6 +1,6 @@
 //
-//  AppDelegate.swift
-//  POPSnapshotTestCase
+//  POPDataHandlerMock.swift
+//  POPSnapshotTestCaseTests
 //
 //  Created by Pär Strindevall
 //  Copyright © 2017 Plata o Plomo
@@ -26,19 +26,33 @@
 //  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+import Foundation
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        self.window = UIWindow()
-        self.window?.rootViewController = UIViewController()
-        self.window?.makeKeyAndVisible()
-        return true
+class POPDataHandlerMock : POPDataHandling {
+    
+    var writeInvokeCount: Int = 0
+    var writeDataArgument: Data? = nil
+    var writePathArgument: URL? = nil
+    var writeOptionsArgument: Data.WritingOptions? = nil
+    var writeErrorToThrow: Error? = nil
+    
+    var imageInvokeCount: Int = 0
+    var imagePathArgument: URL? = nil
+    var imageReturnValue: UIImage? = nil
+    
+    func write(_ data: Data, to path: URL, options: Data.WritingOptions) throws {
+        self.writeInvokeCount += 1
+        self.writeDataArgument = data
+        self.writePathArgument = path
+        self.writeOptionsArgument = options
+        if let error = self.writeErrorToThrow { throw error }
     }
-
+    
+    func image(from path: URL) -> UIImage? {
+        self.imageInvokeCount += 1
+        self.imagePathArgument = path
+        return self.imageReturnValue
+    }
+    
 }
-

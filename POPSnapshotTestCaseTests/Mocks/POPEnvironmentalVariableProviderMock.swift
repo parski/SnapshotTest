@@ -1,6 +1,6 @@
 //
-//  AppDelegate.swift
-//  POPSnapshotTestCase
+//  POPEnvironmentalVariableProviderMock.swift
+//  POPSnapshotTestCaseTests
 //
 //  Created by Pär Strindevall
 //  Copyright © 2017 Plata o Plomo
@@ -26,19 +26,15 @@
 //  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import UIKit
+import Foundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        self.window = UIWindow()
-        self.window?.rootViewController = UIViewController()
-        self.window?.makeKeyAndVisible()
-        return true
+class POPEnvironmentalVariableProviderMock : POPEnvironmentalVariableProviding {
+    
+    var referenceImageDirectoryInvokeCount: Int = 0
+    var referenceImageDirectoryReturnValue: URL? = nil
+    
+    func referenceImageDirectory() -> URL? {
+        self.referenceImageDirectoryInvokeCount += 1
+        return self.referenceImageDirectoryReturnValue
     }
-
 }
-

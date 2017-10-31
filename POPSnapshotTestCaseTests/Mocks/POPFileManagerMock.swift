@@ -1,6 +1,6 @@
 //
-//  AppDelegate.swift
-//  POPSnapshotTestCase
+//  POPFileManagerMock.swift
+//  POPSnapshotTestCaseTests
 //
 //  Created by Pär Strindevall
 //  Copyright © 2017 Plata o Plomo
@@ -26,19 +26,30 @@
 //  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import UIKit
+import Foundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        self.window = UIWindow()
-        self.window?.rootViewController = UIViewController()
-        self.window?.makeKeyAndVisible()
-        return true
+class POPFileManagerMock : FileManager {
+    
+    var fileExistsInvokeCount: Int = 0
+    var fileExistsPathArgument: String? = nil
+    var fileExistsReturnValue: Bool = false
+    
+    var createDirectoryInvokeCount: Int = 0
+    var createDirectoryUrlArgument:  URL? = nil
+    var createDirectoryCreateIntermediariesArgument: Bool? = nil
+    var createDirectoryErrorToThrow: Error? = nil
+    
+    override func fileExists(atPath path: String) -> Bool {
+        self.fileExistsInvokeCount += 1
+        self.fileExistsPathArgument = path
+        return self.fileExistsReturnValue
     }
-
+    
+    override func createDirectory(at url: URL, withIntermediateDirectories createIntermediates: Bool, attributes: [FileAttributeKey : Any]? = nil) throws {
+        self.createDirectoryInvokeCount += 1
+        self.createDirectoryUrlArgument = url
+        self.createDirectoryCreateIntermediariesArgument = createIntermediates
+        if let error = self.createDirectoryErrorToThrow { throw error }
+    }
+    
 }
-
