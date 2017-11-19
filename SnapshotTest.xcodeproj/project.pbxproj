@@ -32,6 +32,8 @@
 		3F6B2A0D1FC190910006A9ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6B2A0C1FC190910006A9ED /* AppDelegate.swift */; };
 		3F6B2A141FC190910006A9ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F6B2A131FC190910006A9ED /* Assets.xcassets */; };
 		3F6B2A171FC190910006A9ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F6B2A151FC190910006A9ED /* LaunchScreen.storyboard */; };
+		3F6B2A221FC1A3AF0006A9ED /* UIImage+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6B2A211FC1A3AF0006A9ED /* UIImage+Snapshot.swift */; };
+		3F6B2A231FC1A3AF0006A9ED /* UIImage+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6B2A211FC1A3AF0006A9ED /* UIImage+Snapshot.swift */; };
 		52D6D9871BEFF229002C0205 /* SnapshotTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D6D97C1BEFF229002C0205 /* SnapshotTest.framework */; };
 		8933C7851EB5B820000D00A4 /* SnapshotTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933C7841EB5B820000D00A4 /* SnapshotTest.swift */; };
 		8933C7881EB5B820000D00A4 /* SnapshotTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933C7841EB5B820000D00A4 /* SnapshotTest.swift */; };
@@ -79,6 +81,7 @@
 		3F6B2A131FC190910006A9ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F6B2A161FC190910006A9ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F6B2A181FC190910006A9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F6B2A211FC1A3AF0006A9ED /* UIImage+Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Snapshot.swift"; sourceTree = "<group>"; };
 		52D6D97C1BEFF229002C0205 /* SnapshotTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapshotTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6D9861BEFF229002C0205 /* SnapshotTest-iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SnapshotTest-iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6D9F01BEFFFBE002C0205 /* SnapshotTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapshotTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -224,8 +227,9 @@
 			isa = PBXGroup;
 			children = (
 				3F69E4C51FB38ACC0081155A /* SnapshotFileManager.swift */,
-				3F69E4C41FB38ACC0081155A /* SnapshotTestCase.swift */,
 				8933C7841EB5B820000D00A4 /* SnapshotTest.swift */,
+				3F69E4C41FB38ACC0081155A /* SnapshotTestCase.swift */,
+				3F6B2A211FC1A3AF0006A9ED /* UIImage+Snapshot.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -467,6 +471,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8933C7851EB5B820000D00A4 /* SnapshotTest.swift in Sources */,
+				3F6B2A221FC1A3AF0006A9ED /* UIImage+Snapshot.swift in Sources */,
 				3F69E4C61FB38ACC0081155A /* SnapshotTestCase.swift in Sources */,
 				3F69E4CC1FB38C530081155A /* SnapshotFileManager.swift in Sources */,
 			);
@@ -492,6 +497,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8933C7881EB5B820000D00A4 /* SnapshotTest.swift in Sources */,
+				3F6B2A231FC1A3AF0006A9ED /* UIImage+Snapshot.swift in Sources */,
 				3F69E4C71FB38ACC0081155A /* SnapshotTestCase.swift in Sources */,
 				3F69E4CD1FB38C540081155A /* SnapshotFileManager.swift in Sources */,
 			);

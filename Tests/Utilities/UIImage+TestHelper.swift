@@ -31,11 +31,10 @@ import UIKit
 
 extension UIImage {
 
-    convenience init?(testFilename filename: String, ofType type: String, scale: CGFloat = 2.0) {
+    convenience init?(testFilename filename: String, ofType type: String) {
         guard let bundle = Bundle(identifier: "com.SnapshotTest.SnapshotTest-iOS-Tests") else { return nil }
-        guard let fileUrl = bundle.url(forResource: filename, withExtension: type) else { return nil }
-        guard let imageData = try? Data(contentsOf: fileUrl) else { return nil }
-        self.init(data: imageData, scale: scale)
+        guard let path = bundle.path(forResource: filename, ofType: type) else { return nil }
+        self.init(contentsOfFile: path)
     }
 
 }
