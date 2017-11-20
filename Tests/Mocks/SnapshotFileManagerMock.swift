@@ -34,27 +34,27 @@ class SnapshotFileManagerMock : SnapshotFileManaging {
     var saveInvokeCount: Int = 0
     var saveReferenceImageArgument: UIImage? = nil
     var saveFunctionNameArgument: String? = nil
-    var saveIsDeviceAgnosticArgument: Bool? = nil
+    var saveOptionsArgument: DeviceOptions? = nil
     var saveErrorToThrow: Error? = nil
     
     var referenceImageInvokeCount: Int = 0
     var referenceImageFunctionNameArgument: String? = nil
-    var referenceImageIsDeviceAgnosticArgument: Bool? = nil
+    var referenceImageOptionsArgument: DeviceOptions? = nil
     var referenceImageErrorToThrow: Error? = nil
     var referenceImageReturnValue: UIImage? = nil
     
-    func save(referenceImage: UIImage, functionName: String, isDeviceAgnostic: Bool) throws {
+    func save(referenceImage: UIImage, functionName: String, options: DeviceOptions) throws {
         self.saveInvokeCount += 1
         self.saveReferenceImageArgument = referenceImage
         self.saveFunctionNameArgument = functionName
-        self.saveIsDeviceAgnosticArgument = isDeviceAgnostic
+        self.saveOptionsArgument = options
         if let error = self.saveErrorToThrow { throw error }
     }
     
-    func referenceImage(forFunctionName functionName: String, isDeviceAgnostic: Bool) throws -> UIImage {
+    func referenceImage(forFunctionName functionName: String, options: DeviceOptions) throws -> UIImage {
         self.referenceImageInvokeCount += 1
         self.referenceImageFunctionNameArgument = functionName
-        self.referenceImageIsDeviceAgnosticArgument = isDeviceAgnostic
+        self.referenceImageOptionsArgument = options
         if let error = self.referenceImageErrorToThrow { throw error }
         return self.referenceImageReturnValue!
     }

@@ -36,7 +36,7 @@ public enum SnapshotError : Error {
 public class SnapshotTestCase : XCTestCase {
     var recordMode: Bool = false
     var fileManager: SnapshotFileManaging = SnapshotFileManager()
-    var isDeviceAgnostic: Bool = false
+    var options: DeviceOptions = []
     
     func Verify(view: UIView, functionName: String = #function, file: StaticString = #file, line: UInt = #line) {
         do {
@@ -53,14 +53,14 @@ public class SnapshotTestCase : XCTestCase {
     
     func compareSnapshot(ofView view: UIView, functionName: String = #function, file: StaticString = #file, line: UInt = #line) throws -> Bool {
         guard let snapshot = self.image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
-        let referenceImage = try self.fileManager.referenceImage(forFunctionName: functionName, isDeviceAgnostic: self.isDeviceAgnostic)
+        let referenceImage = try self.fileManager.referenceImage(forFunctionName: functionName, options: self.options )
 
         return snapshot.normalizedData() == referenceImage.normalizedData()
     }
     
     func recordSnapshot(of view: UIView, functionName: String) throws {
         guard let referenceImage = self.image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
-        try self.fileManager.save(referenceImage: referenceImage, functionName: functionName, isDeviceAgnostic: self.isDeviceAgnostic)
+        try self.fileManager.save(referenceImage: referenceImage, functionName: functionName, options: self.options)
     }
     
     private func image(forView view: UIView) -> UIImage? {

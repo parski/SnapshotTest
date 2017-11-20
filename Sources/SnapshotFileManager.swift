@@ -58,8 +58,8 @@ class EnvironmentalVariableProvider : EnvironmentalVariableProviding {
 }
 
 protocol SnapshotFileManaging {
-    func save(referenceImage: UIImage, functionName: String, isDeviceAgnostic: Bool) throws
-    func referenceImage(forFunctionName functionName: String, isDeviceAgnostic: Bool) throws -> UIImage
+    func save(referenceImage: UIImage, functionName: String, options: DeviceOptions) throws
+    func referenceImage(forFunctionName functionName: String, options: DeviceOptions) throws -> UIImage
 }
 
 enum SnapshotFileManagerError : Error {
@@ -78,38 +78,38 @@ class SnapshotFileManager : SnapshotFileManaging {
         self.environmentalVariableProvider.referenceImageDirectory()
     }()
     
-    func save(referenceImage: UIImage, functionName: String, isDeviceAgnostic: Bool) throws {
+    func save(referenceImage: UIImage, functionName: String, options: DeviceOptions) throws {
         guard let referenceImageDirectory = self.referenceImageDirectory else { throw SnapshotFileManagerError.unableToDetermineReferenceImageDirectory }
         if self.fileManager.fileExists(atPath: referenceImageDirectory.absoluteString) == false {
             try self.fileManager.createDirectory(at: referenceImageDirectory, withIntermediateDirectories: true, attributes: nil)
         }
         
-        let path = try self.path(forFunctionName: functionName, isDeviceAgnostic: isDeviceAgnostic)
+        let path = try self.path(forFunctionName: functionName, options: options)
         guard let imagePngData = UIImagePNGRepresentation(referenceImage) else { throw SnapshotFileManagerError.unableToSerializeReferenceImage }
         try self.dataHandler.write(imagePngData, to: path, options: .atomicWrite)
     }
     
-    func referenceImage(forFunctionName functionName: String, isDeviceAgnostic: Bool) throws -> UIImage {
-        let path = try self.path(forFunctionName: functionName, isDeviceAgnostic: isDeviceAgnostic)
+    func referenceImage(forFunctionName functionName: String, options: DeviceOptions) throws -> UIImage {
+        let path = try self.path(forFunctionName: functionName, options: options)
         guard let referenceImage = self.dataHandler.image(from: path) else { throw SnapshotFileManagerError.unableToDeserializeReferenceImage }
         
         return referenceImage
     }
     
-    private func path(forFunctionName functionName: String, isDeviceAgnostic: Bool) throws -> URL {
+    private func path(forFunctionName functionName: String, options: DeviceOptions) throws -> URL {
         guard let referenceImageDirectory = referenceImageDirectory else { throw SnapshotFileManagerError.unableToDetermineReferenceImageDirectory }
-        let fileName = self.filename(forFunctionName: functionName, isDeviceAgnostic: isDeviceAgnostic)
+        let fileName = self.filename(forFunctionName: functionName, options: options)
         
         return referenceImageDirectory.appendingPathComponent(fileName).appendingPathExtension("png")
     }
     
-    private func filename(forFunctionName functionName: String, isDeviceAgnostic: Bool) -> String {
-        guard isDeviceAgnostic else { return functionName }
+    private func filename(forFunctionName functionName: String, options: DeviceOptions) -> String {
+        guard options.isEmpty == false else { return functionName }
         
-        return functionName.appending(self.deviceAgnosticSegment())
+        return functionName.appending(self.optionsSegment())
     }
     
-    private func deviceAgnosticSegment() -> String {
+    private func optionsSegment() -> String {
         return "_"
     }
     

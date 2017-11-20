@@ -93,7 +93,7 @@ class SnapshotFileManagerTests: XCTestCase {
         self.sut.environmentalVariableProvider = self.environmentalVariableProviderMock(with: referenceImageDirectoryPathString)
         
         // When
-        try? self.sut.save(referenceImage: UIImage(), functionName: "", isDeviceAgnostic: false)
+        try? self.sut.save(referenceImage: UIImage(), functionName: "", options: [])
         
         // Then
         XCTAssertEqual(self.fileManagerMock.fileExistsInvokeCount, 1)
@@ -116,7 +116,7 @@ class SnapshotFileManagerTests: XCTestCase {
         self.fileManagerMock.fileExistsReturnValue = false
         
         // When
-        try? self.sut.save(referenceImage: UIImage(), functionName: "", isDeviceAgnostic: false)
+        try? self.sut.save(referenceImage: UIImage(), functionName: "", options: [])
         
         // Then
         XCTAssertEqual(self.fileManagerMock.createDirectoryInvokeCount, 1)
@@ -130,7 +130,7 @@ class SnapshotFileManagerTests: XCTestCase {
         self.fileManagerMock.fileExistsReturnValue = true
         
         // When
-        try? self.sut.save(referenceImage: UIImage(), functionName: "", isDeviceAgnostic: false)
+        try? self.sut.save(referenceImage: UIImage(), functionName: "", options: [])
         
         // Then
         XCTAssertEqual(self.fileManagerMock.createDirectoryInvokeCount, 0)
@@ -145,7 +145,7 @@ class SnapshotFileManagerTests: XCTestCase {
         let testImage = UIImage(data: data!, scale: UIScreen.main.scale)!
         
         // When
-        try? self.sut.save(referenceImage: testImage, functionName: "testFunctionName", isDeviceAgnostic: false)
+        try? self.sut.save(referenceImage: testImage, functionName: "testFunctionName", options: [])
         
         // Then
         XCTAssertEqual(self.dataHandlerMock.writeInvokeCount, 1)
@@ -163,7 +163,7 @@ class SnapshotFileManagerTests: XCTestCase {
         let testImage = UIImage(data: data!, scale: UIScreen.main.scale)!
         
         // When
-        try? self.sut.save(referenceImage: testImage, functionName: "testFunctionName", isDeviceAgnostic: false)
+        try? self.sut.save(referenceImage: testImage, functionName: "testFunctionName", options: [])
         
         // Then
         XCTAssertEqual(self.dataHandlerMock.writeInvokeCount, 1)
