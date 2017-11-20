@@ -55,8 +55,8 @@ public class SnapshotTestCase : XCTestCase {
     func compareSnapshot(ofView view: UIView, functionName: String = #function, file: StaticString = #file, line: UInt = #line) throws -> Bool {
         guard let snapshot = self.image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
         let referenceImage = try self.fileManager.referenceImage(forFunctionName: functionName, isDeviceAgnostic: self.isDeviceAgnostic)
-        
-        return UIImagePNGRepresentation(snapshot) == UIImagePNGRepresentation(referenceImage)
+
+        return snapshot.normalizedData() == referenceImage.normalizedData()
     }
     
     func recordSnapshot(of view: UIView, functionName: String) throws {
@@ -65,11 +65,15 @@ public class SnapshotTestCase : XCTestCase {
     }
     
     private func image(forView view: UIView) -> UIImage? {
+
         UIGraphicsBeginImageContext(view.bounds.size)
         view.layoutIfNeeded()
         view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
         
-        return UIGraphicsGetImageFromCurrentImageContext()
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return image
     }
 
 }

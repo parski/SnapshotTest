@@ -50,26 +50,26 @@ class SnapshotTestCaseTests: XCTestCase {
     
     // MARK: Compare Snapshot
     
-    func testCompareSnapshot_withViewEqualToReferenceImage_shouldReturnTrue() {
+    func testCompareSnapshot_withViewEqualToReferenceImage_shouldReturnTrue() throws {
         // Given
         let view = self.redSquareView()
-        self.fileManagerMock.referenceImageReturnValue = UIImage(testFilename: "redSquare", ofType: "png", scale: 2.0)
+        self.fileManagerMock.referenceImageReturnValue = UIImage(testFilename: "redSquare", ofType: "png")
 
         // When
-        let result = try! self.sut.compareSnapshot(ofView: view)
+        let result = try self.sut.compareSnapshot(ofView: view)
 
         // Then
         XCTAssertTrue(result)
     }
     
-    func testCompareSnapshot_withViewNotEqualToReferenceImage_shouldReturnFalse() {
+    func testCompareSnapshot_withViewNotEqualToReferenceImage_shouldReturnFalse() throws {
         // Given
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         view.backgroundColor = .blue
         self.fileManagerMock.referenceImageReturnValue = UIImage(testFilename: "redSquare", ofType: "png")
 
         // When
-        let result = try! self.sut.compareSnapshot(ofView: view)
+        let result = try self.sut.compareSnapshot(ofView: view)
 
         // Then
         XCTAssertFalse(result)
