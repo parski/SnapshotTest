@@ -2,8 +2,7 @@
 //  UIImage+TestHelper.swift
 //  SnapshotTest
 //
-//  Created by André Stenvall
-//  Copyright © 2017 Plata o Plomo
+//  Copyright © 2017 SnapshotTest. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
