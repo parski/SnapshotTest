@@ -34,6 +34,7 @@ class SnapshotFileManagerTests: XCTestCase {
     
     var fileManagerMock: FileManagerMock!
     var dataHandlerMock: DataHandlerMock!
+    var deviceInformationProviderMock: DeviceInformationProviderMock!
     
     override func setUp() {
         super.setUp()
@@ -42,6 +43,8 @@ class SnapshotFileManagerTests: XCTestCase {
         self.sut.fileManager = fileManagerMock
         self.dataHandlerMock = DataHandlerMock()
         self.sut.dataHandler = self.dataHandlerMock
+        self.deviceInformationProviderMock = DeviceInformationProviderMock()
+        self.sut.deviceInformationProvider = self.deviceInformationProviderMock
     }
     
     override func tearDown() {
@@ -140,9 +143,7 @@ class SnapshotFileManagerTests: XCTestCase {
         // Given
         self.sut.environmentalVariableProvider = self.environmentalVariableProviderMock(with: "/ReferenceImageDirectory")
         self.fileManagerMock.fileExistsReturnValue = true
-        let fileUrl = Bundle(for: type(of: self)).url(forResource: "redSquare", withExtension: "png")
-        let data = try? Data(contentsOf: fileUrl!)
-        let testImage = UIImage(data: data!, scale: UIScreen.main.scale)!
+        let testImage = self.image(for: "redSquare")
         
         // When
         try? self.sut.save(referenceImage: testImage, functionName: "testFunctionName", options: [])
@@ -150,6 +151,63 @@ class SnapshotFileManagerTests: XCTestCase {
         // Then
         XCTAssertEqual(self.dataHandlerMock.writeInvokeCount, 1)
         XCTAssertEqual(self.dataHandlerMock.writePathArgument, URL(string: "/ReferenceImageDirectory/testFunctionName.png")!)
+    }
+    
+    func testSave_withOptionsTypeAndDeviceIsIphone_shouldWriteDataWithCorrectFileName() {
+        // Given
+        self.configureSutWithExistingReferenceImageDirectory()
+        let testImage = self.image(for: "redSquare")
+        self.deviceInformationProviderMock.modelReturnValue = "iPhone"
+        
+        // When
+        try? self.sut.save(referenceImage: testImage, functionName: "testFunctionName", options: [.type])
+        
+        // Then
+        XCTAssertEqual(self.dataHandlerMock.writeInvokeCount, 1)
+        XCTAssertEqual(self.dataHandlerMock.writePathArgument, URL(string: "/testFunctionName_iPhone.png")!)
+    }
+    
+    func testSave_withOptionsTypeAndDeviceIsAppleTV_shouldWriteDataWithCorrectFileName() {
+        // Given
+        self.configureSutWithExistingReferenceImageDirectory()
+        let testImage = self.image(for: "redSquare")
+        self.deviceInformationProviderMock.modelReturnValue = "Apple TV"
+        
+        // When
+        try? self.sut.save(referenceImage: testImage, functionName: "testFunctionName", options: [.type])
+        
+        // Then
+        XCTAssertEqual(self.dataHandlerMock.writeInvokeCount, 1)
+        XCTAssertEqual(self.dataHandlerMock.writePathArgument, URL(string: "/testFunctionName_AppleTV.png")!)
+    }
+    
+    func testSave_withOptionsOSVersionAndVersionIs11_0_3_shouldWriteDataWithCorrectFileName() {
+        // Given
+        self.configureSutWithExistingReferenceImageDirectory()
+        let testImage = self.image(for: "redSquare")
+        self.deviceInformationProviderMock.systemVersionReturnValue = "11.0.3"
+        
+        // When
+        try? self.sut.save(referenceImage: testImage, functionName: "testFunctionName", options: [.osVersion])
+        
+        // Then
+        XCTAssertEqual(self.dataHandlerMock.writeInvokeCount, 1)
+        XCTAssertEqual(self.dataHandlerMock.writePathArgument, URL(string: "/testFunctionName_11_0_3.png")!)
+    }
+    
+    func testSave_withOptionsTypeAndOSVersionAndTypeIsIpadAndVersionIs10_2_0_shouldWriteDataWithCorrectFileName() {
+        // Given
+        self.configureSutWithExistingReferenceImageDirectory()
+        let testImage = self.image(for: "redSquare")
+        self.deviceInformationProviderMock.modelReturnValue = "iPad"
+        self.deviceInformationProviderMock.systemVersionReturnValue = "10.2"
+        
+        // When
+        try? self.sut.save(referenceImage: testImage, functionName: "testFunctionName", options: [.type, .osVersion])
+        
+        // Then
+        XCTAssertEqual(self.dataHandlerMock.writeInvokeCount, 1)
+        XCTAssertEqual(self.dataHandlerMock.writePathArgument, URL(string: "/testFunctionName_iPad_10_2.png")!)
     }
     
     // MARK: Reference Image
@@ -175,6 +233,17 @@ class SnapshotFileManagerTests: XCTestCase {
         let referenceImageDirectoryPath = URL(string: referenceImageDirectoryPathString)
         environmentalVariableProviderMock.referenceImageDirectoryReturnValue = referenceImageDirectoryPath
         return environmentalVariableProviderMock
+    }
+    
+    private func image(`for` name: String) -> UIImage {
+        let fileUrl = Bundle(for: type(of: self)).url(forResource: name, withExtension: "png")
+        let data = try? Data(contentsOf: fileUrl!)
+        return UIImage(data: data!, scale: UIScreen.main.scale)!
+    }
+    
+    private func configureSutWithExistingReferenceImageDirectory() {
+        self.sut.environmentalVariableProvider = self.environmentalVariableProviderMock(with: "/")
+        self.fileManagerMock.fileExistsReturnValue = true
     }
     
 }

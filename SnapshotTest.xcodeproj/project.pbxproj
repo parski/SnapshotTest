@@ -40,6 +40,8 @@
 		DD7502921C690C7A006590AF /* SnapshotTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D6D9F01BEFFFBE002C0205 /* SnapshotTest.framework */; };
 		F22E2E761FC326A900151E66 /* DeviceOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E2E751FC326A900151E66 /* DeviceOptions.swift */; };
 		F22E2E781FC3284000151E66 /* DeviceOptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E2E771FC3284000151E66 /* DeviceOptionTests.swift */; };
+		F22E2E7D1FC3333A00151E66 /* DeviceInformationProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E2E7B1FC332FA00151E66 /* DeviceInformationProviderMock.swift */; };
+		F22E2E7E1FC3333A00151E66 /* DeviceInformationProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E2E7B1FC332FA00151E66 /* DeviceInformationProviderMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,7 @@
 		DD75028D1C690C7A006590AF /* SnapshotTest-tvOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SnapshotTest-tvOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F22E2E751FC326A900151E66 /* DeviceOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceOptions.swift; sourceTree = "<group>"; };
 		F22E2E771FC3284000151E66 /* DeviceOptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceOptionTests.swift; sourceTree = "<group>"; };
+		F22E2E7B1FC332FA00151E66 /* DeviceInformationProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInformationProviderMock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +165,7 @@
 				3F69E4ED1FB390630081155A /* EnvironmentalVariableProviderMock.swift */,
 				3F69E4EE1FB390630081155A /* FileManagerMock.swift */,
 				3F69E4EF1FB390630081155A /* SnapshotFileManagerMock.swift */,
+				F22E2E7B1FC332FA00151E66 /* DeviceInformationProviderMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -491,6 +495,7 @@
 				3F69E4F41FB390630081155A /* DataHandlerMock.swift in Sources */,
 				3F69E4FA1FB390630081155A /* SnapshotFileManagerMock.swift in Sources */,
 				3F69E4F61FB390630081155A /* EnvironmentalVariableProviderMock.swift in Sources */,
+				F22E2E7D1FC3333A00151E66 /* DeviceInformationProviderMock.swift in Sources */,
 				3F66EFDA1FB39392001C54DB /* UIImage+TestHelper.swift in Sources */,
 				3F69E4FE1FB390630081155A /* SnapshotTestCaseTests.swift in Sources */,
 				3F69E4F81FB390630081155A /* FileManagerMock.swift in Sources */,
@@ -520,6 +525,7 @@
 				3F69E4F71FB390630081155A /* EnvironmentalVariableProviderMock.swift in Sources */,
 				3F66EFDB1FB39392001C54DB /* UIImage+TestHelper.swift in Sources */,
 				3F69E4FF1FB390630081155A /* SnapshotTestCaseTests.swift in Sources */,
+				F22E2E7E1FC3333A00151E66 /* DeviceInformationProviderMock.swift in Sources */,
 				3F69E4F91FB390630081155A /* FileManagerMock.swift in Sources */,
 				3F69E4FD1FB390630081155A /* SnapshotFileManagerTests.swift in Sources */,
 				3F69E5011FB390630081155A /* SnapshotTestTests.swift in Sources */,

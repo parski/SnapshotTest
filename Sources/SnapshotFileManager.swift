@@ -57,6 +57,23 @@ class EnvironmentalVariableProvider : EnvironmentalVariableProviding {
     }
 }
 
+protocol DeviceInformationProviding {
+    var model: String { get }
+    var systemVersion: String { get }
+}
+
+class DeviceInformationProvider : DeviceInformationProviding {
+
+    var model: String {
+        return UIDevice.current.model
+    }
+    
+    var systemVersion: String {
+        return UIDevice.current.systemVersion
+    }
+    
+}
+
 protocol SnapshotFileManaging {
     func save(referenceImage: UIImage, functionName: String, options: DeviceOptions) throws
     func referenceImage(forFunctionName functionName: String, options: DeviceOptions) throws -> UIImage
@@ -73,6 +90,7 @@ class SnapshotFileManager : SnapshotFileManaging {
     var fileManager: FileManager = FileManager.default
     var dataHandler: DataHandling = DataHandler()
     var environmentalVariableProvider: EnvironmentalVariableProviding = EnvironmentalVariableProvider()
+    var deviceInformationProvider: DeviceInformationProviding = DeviceInformationProvider()
     
     lazy var referenceImageDirectory: URL? = {
         self.environmentalVariableProvider.referenceImageDirectory()
@@ -106,11 +124,35 @@ class SnapshotFileManager : SnapshotFileManaging {
     private func filename(forFunctionName functionName: String, options: DeviceOptions) -> String {
         guard options.isEmpty == false else { return functionName }
         
-        return functionName.appending(self.optionsSegment())
+        return functionName.appending(self.segment(for: options))
     }
     
-    private func optionsSegment() -> String {
-        return "_"
+    private func segment(`for` options: DeviceOptions) -> String {
+        var segment = ""
+        
+        if options.contains(.type) {
+            segment.append(self.typeSegment())
+        }
+        
+        if options.contains(.osVersion) {
+            segment.append(self.osVersionSegment())
+        }
+        
+        return segment
+    }
+    
+    private func typeSegment() -> String {
+        let model = self.deviceInformationProvider.model
+        let formattedModel = model.components(separatedBy: .whitespaces).joined()
+        
+        return "_\(formattedModel)"
+    }
+    
+    private func osVersionSegment() -> String {
+        let version = self.deviceInformationProvider.systemVersion
+        let formattedVersion = version.replacingOccurrences(of: ".", with: "_")
+        
+        return "_\(formattedVersion)"
     }
     
 }
