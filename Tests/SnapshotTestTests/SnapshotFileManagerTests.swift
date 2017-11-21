@@ -143,7 +143,7 @@ class SnapshotFileManagerTests: XCTestCase {
         // Given
         self.sut.environmentalVariableProvider = self.environmentalVariableProviderMock(with: "/ReferenceImageDirectory")
         self.fileManagerMock.fileExistsReturnValue = true
-        let testImage = self.image(for: "redSquare")
+        let testImage = UIImage(testFilename: "redSquare", ofType: "png")!
         
         // When
         try self.sut.save(referenceImage: testImage, functionName: "testFunctionName", options: [])
@@ -156,7 +156,7 @@ class SnapshotFileManagerTests: XCTestCase {
     func testSave_withOptionsModelTypeAndDeviceIsIphone_shouldWriteDataWithCorrectFileName() throws {
         // Given
         self.configureSutWithExistingReferenceImageDirectory()
-        let testImage = self.image(for: "redSquare")
+        let testImage = UIImage(testFilename: "redSquare", ofType: "png")!
         self.deviceInformationProviderMock.modelReturnValue = "iPhone"
         
         // When
@@ -170,7 +170,7 @@ class SnapshotFileManagerTests: XCTestCase {
     func testSave_withOptionsModelTypeAndDeviceIsAppleTV_shouldWriteDataWithCorrectFileName() throws {
         // Given
         self.configureSutWithExistingReferenceImageDirectory()
-        let testImage = self.image(for: "redSquare")
+        let testImage = UIImage(testFilename: "redSquare", ofType: "png")!
         self.deviceInformationProviderMock.modelReturnValue = "Apple TV"
         
         // When
@@ -184,7 +184,7 @@ class SnapshotFileManagerTests: XCTestCase {
     func testSave_withOptionsOSVersionAndVersionIs11_0_3_shouldWriteDataWithCorrectFileName() throws {
         // Given
         self.configureSutWithExistingReferenceImageDirectory()
-        let testImage = self.image(for: "redSquare")
+        let testImage = UIImage(testFilename: "redSquare", ofType: "png")!
         self.deviceInformationProviderMock.systemVersionReturnValue = "11.0.3"
         
         // When
@@ -198,7 +198,7 @@ class SnapshotFileManagerTests: XCTestCase {
     func testSave_withOptionsModelTypeAndOSVersionAndModelTypeIsIpadAndVersionIs10_2_0_shouldWriteDataWithCorrectFileName() throws {
         // Given
         self.configureSutWithExistingReferenceImageDirectory()
-        let testImage = self.image(for: "redSquare")
+        let testImage = UIImage(testFilename: "redSquare", ofType: "png")!
         self.deviceInformationProviderMock.modelReturnValue = "iPad"
         self.deviceInformationProviderMock.systemVersionReturnValue = "10.2"
         
@@ -216,9 +216,7 @@ class SnapshotFileManagerTests: XCTestCase {
         // Given
         self.sut.environmentalVariableProvider = self.environmentalVariableProviderMock(with: "/ReferenceImageDirectory")
         self.fileManagerMock.fileExistsReturnValue = true
-        let fileUrl = Bundle(for: type(of: self)).url(forResource: "redSquare", withExtension: "png")
-        let data = try? Data(contentsOf: fileUrl!)
-        let testImage = UIImage(data: data!, scale: UIScreen.main.scale)!
+        let testImage = UIImage(testFilename: "redSquare", ofType: "png")!
         
         // When
         try self.sut.save(referenceImage: testImage, functionName: "testFunctionName", options: [])
@@ -233,12 +231,6 @@ class SnapshotFileManagerTests: XCTestCase {
         let referenceImageDirectoryPath = URL(string: referenceImageDirectoryPathString)
         environmentalVariableProviderMock.referenceImageDirectoryReturnValue = referenceImageDirectoryPath
         return environmentalVariableProviderMock
-    }
-    
-    private func image(for name: String) -> UIImage {
-        let fileUrl = Bundle(for: type(of: self)).url(forResource: name, withExtension: "png")
-        let data = try? Data(contentsOf: fileUrl!)
-        return UIImage(data: data!, scale: UIScreen.main.scale)!
     }
     
     private func configureSutWithExistingReferenceImageDirectory() {
