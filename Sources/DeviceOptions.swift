@@ -1,6 +1,6 @@
 //
-//  SnapshotFileManagerMock.swift
-//  SnapshotTestCaseTests
+//  DeviceOptions.swift
+//  SnapshotTest-iOS
 //
 //  Copyright © 2017 SnapshotTest. All rights reserved.
 //
@@ -25,39 +25,11 @@
 //  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-@testable import SnapshotTest
 import Foundation
-import UIKit
 
-class SnapshotFileManagerMock : SnapshotFileManaging {
+struct DeviceOptions : OptionSet {
+    let rawValue: Int
     
-    var saveInvokeCount: Int = 0
-    var saveReferenceImageArgument: UIImage? = nil
-    var saveFunctionNameArgument: String? = nil
-    var saveOptionsArgument: DeviceOptions? = nil
-    var saveErrorToThrow: Error? = nil
-    
-    var referenceImageInvokeCount: Int = 0
-    var referenceImageFunctionNameArgument: String? = nil
-    var referenceImageOptionsArgument: DeviceOptions? = nil
-    var referenceImageErrorToThrow: Error? = nil
-    var referenceImageReturnValue: UIImage? = nil
-    
-    func save(referenceImage: UIImage, functionName: String, options: DeviceOptions) throws {
-        self.saveInvokeCount += 1
-        self.saveReferenceImageArgument = referenceImage
-        self.saveFunctionNameArgument = functionName
-        self.saveOptionsArgument = options
-        if let error = self.saveErrorToThrow { throw error }
-    }
-    
-    func referenceImage(forFunctionName functionName: String, options: DeviceOptions) throws -> UIImage {
-        self.referenceImageInvokeCount += 1
-        self.referenceImageFunctionNameArgument = functionName
-        self.referenceImageOptionsArgument = options
-        if let error = self.referenceImageErrorToThrow { throw error }
-        return self.referenceImageReturnValue!
-    }
-    
-    
+    static let modelType = DeviceOptions(rawValue: 1 << 0)
+    static let osVersion = DeviceOptions(rawValue: 1 << 1)
 }

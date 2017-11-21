@@ -1,6 +1,6 @@
 //
-//  SnapshotFileManagerMock.swift
-//  SnapshotTestCaseTests
+//  DeviceInformationProviderMock.swift
+//  SnapshotTest-iOS
 //
 //  Copyright © 2017 SnapshotTest. All rights reserved.
 //
@@ -27,37 +27,18 @@
 
 @testable import SnapshotTest
 import Foundation
-import UIKit
 
-class SnapshotFileManagerMock : SnapshotFileManaging {
+class DeviceInformationProviderMock : DeviceInformationProviding {
     
-    var saveInvokeCount: Int = 0
-    var saveReferenceImageArgument: UIImage? = nil
-    var saveFunctionNameArgument: String? = nil
-    var saveOptionsArgument: DeviceOptions? = nil
-    var saveErrorToThrow: Error? = nil
+    var modelReturnValue: String? = nil
+    var systemVersionReturnValue: String? = nil
     
-    var referenceImageInvokeCount: Int = 0
-    var referenceImageFunctionNameArgument: String? = nil
-    var referenceImageOptionsArgument: DeviceOptions? = nil
-    var referenceImageErrorToThrow: Error? = nil
-    var referenceImageReturnValue: UIImage? = nil
-    
-    func save(referenceImage: UIImage, functionName: String, options: DeviceOptions) throws {
-        self.saveInvokeCount += 1
-        self.saveReferenceImageArgument = referenceImage
-        self.saveFunctionNameArgument = functionName
-        self.saveOptionsArgument = options
-        if let error = self.saveErrorToThrow { throw error }
+    var model: String {
+        return self.modelReturnValue ?? ""
     }
     
-    func referenceImage(forFunctionName functionName: String, options: DeviceOptions) throws -> UIImage {
-        self.referenceImageInvokeCount += 1
-        self.referenceImageFunctionNameArgument = functionName
-        self.referenceImageOptionsArgument = options
-        if let error = self.referenceImageErrorToThrow { throw error }
-        return self.referenceImageReturnValue!
+    var systemVersion: String {
+        return self.systemVersionReturnValue ?? ""
     }
-    
     
 }

@@ -57,9 +57,26 @@ class EnvironmentalVariableProvider : EnvironmentalVariableProviding {
     }
 }
 
+protocol DeviceInformationProviding {
+    var model: String { get }
+    var systemVersion: String { get }
+}
+
+class DeviceInformationProvider : DeviceInformationProviding {
+
+    var model: String {
+        return UIDevice.current.model
+    }
+    
+    var systemVersion: String {
+        return UIDevice.current.systemVersion
+    }
+    
+}
+
 protocol SnapshotFileManaging {
-    func save(referenceImage: UIImage, functionName: String, isDeviceAgnostic: Bool) throws
-    func referenceImage(forFunctionName functionName: String, isDeviceAgnostic: Bool) throws -> UIImage
+    func save(referenceImage: UIImage, functionName: String, options: DeviceOptions) throws
+    func referenceImage(forFunctionName functionName: String, options: DeviceOptions) throws -> UIImage
 }
 
 enum SnapshotFileManagerError : Error {
@@ -73,44 +90,69 @@ class SnapshotFileManager : SnapshotFileManaging {
     var fileManager: FileManager = FileManager.default
     var dataHandler: DataHandling = DataHandler()
     var environmentalVariableProvider: EnvironmentalVariableProviding = EnvironmentalVariableProvider()
+    var deviceInformationProvider: DeviceInformationProviding = DeviceInformationProvider()
     
     lazy var referenceImageDirectory: URL? = {
         self.environmentalVariableProvider.referenceImageDirectory()
     }()
     
-    func save(referenceImage: UIImage, functionName: String, isDeviceAgnostic: Bool) throws {
+    func save(referenceImage: UIImage, functionName: String, options: DeviceOptions) throws {
         guard let referenceImageDirectory = self.referenceImageDirectory else { throw SnapshotFileManagerError.unableToDetermineReferenceImageDirectory }
         if self.fileManager.fileExists(atPath: referenceImageDirectory.absoluteString) == false {
             try self.fileManager.createDirectory(at: referenceImageDirectory, withIntermediateDirectories: true, attributes: nil)
         }
         
-        let path = try self.path(forFunctionName: functionName, isDeviceAgnostic: isDeviceAgnostic)
+        let path = try self.path(forFunctionName: functionName, options: options)
         guard let imagePngData = UIImagePNGRepresentation(referenceImage) else { throw SnapshotFileManagerError.unableToSerializeReferenceImage }
         try self.dataHandler.write(imagePngData, to: path, options: .atomicWrite)
     }
     
-    func referenceImage(forFunctionName functionName: String, isDeviceAgnostic: Bool) throws -> UIImage {
-        let path = try self.path(forFunctionName: functionName, isDeviceAgnostic: isDeviceAgnostic)
+    func referenceImage(forFunctionName functionName: String, options: DeviceOptions) throws -> UIImage {
+        let path = try self.path(forFunctionName: functionName, options: options)
         guard let referenceImage = self.dataHandler.image(from: path) else { throw SnapshotFileManagerError.unableToDeserializeReferenceImage }
         
         return referenceImage
     }
     
-    private func path(forFunctionName functionName: String, isDeviceAgnostic: Bool) throws -> URL {
+    private func path(forFunctionName functionName: String, options: DeviceOptions) throws -> URL {
         guard let referenceImageDirectory = referenceImageDirectory else { throw SnapshotFileManagerError.unableToDetermineReferenceImageDirectory }
-        let fileName = self.filename(forFunctionName: functionName, isDeviceAgnostic: isDeviceAgnostic)
+        let fileName = self.filename(forFunctionName: functionName, options: options)
         
         return referenceImageDirectory.appendingPathComponent(fileName).appendingPathExtension("png")
     }
     
-    private func filename(forFunctionName functionName: String, isDeviceAgnostic: Bool) -> String {
-        guard isDeviceAgnostic else { return functionName }
+    private func filename(forFunctionName functionName: String, options: DeviceOptions) -> String {
+        guard options.isEmpty == false else { return functionName }
         
-        return functionName.appending(self.deviceAgnosticSegment())
+        return functionName.appending(self.segment(for: options))
     }
     
-    private func deviceAgnosticSegment() -> String {
-        return "_"
+    private func segment(for options: DeviceOptions) -> String {
+        var segment = ""
+        
+        if options.contains(.modelType) {
+            segment.append(self.typeSegment())
+        }
+        
+        if options.contains(.osVersion) {
+            segment.append(self.osVersionSegment())
+        }
+        
+        return segment
+    }
+    
+    private func typeSegment() -> String {
+        let model = self.deviceInformationProvider.model
+        let formattedModel = model.components(separatedBy: .whitespaces).joined()
+        
+        return "_\(formattedModel)"
+    }
+    
+    private func osVersionSegment() -> String {
+        let version = self.deviceInformationProvider.systemVersion
+        let formattedVersion = version.replacingOccurrences(of: ".", with: "_")
+        
+        return "_\(formattedVersion)"
     }
     
 }
