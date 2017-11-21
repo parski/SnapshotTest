@@ -153,28 +153,28 @@ class SnapshotFileManagerTests: XCTestCase {
         XCTAssertEqual(self.dataHandlerMock.writePathArgument, URL(string: "/ReferenceImageDirectory/testFunctionName.png")!)
     }
     
-    func testSave_withOptionsTypeAndDeviceIsIphone_shouldWriteDataWithCorrectFileName() {
+    func testSave_withOptionsModelTypeAndDeviceIsIphone_shouldWriteDataWithCorrectFileName() {
         // Given
         self.configureSutWithExistingReferenceImageDirectory()
         let testImage = self.image(for: "redSquare")
         self.deviceInformationProviderMock.modelReturnValue = "iPhone"
         
         // When
-        try? self.sut.save(referenceImage: testImage, functionName: "testFunctionName", options: [.type])
+        try? self.sut.save(referenceImage: testImage, functionName: "testFunctionName", options: [.modelType])
         
         // Then
         XCTAssertEqual(self.dataHandlerMock.writeInvokeCount, 1)
         XCTAssertEqual(self.dataHandlerMock.writePathArgument, URL(string: "/testFunctionName_iPhone.png")!)
     }
     
-    func testSave_withOptionsTypeAndDeviceIsAppleTV_shouldWriteDataWithCorrectFileName() {
+    func testSave_withOptionsModelTypeAndDeviceIsAppleTV_shouldWriteDataWithCorrectFileName() {
         // Given
         self.configureSutWithExistingReferenceImageDirectory()
         let testImage = self.image(for: "redSquare")
         self.deviceInformationProviderMock.modelReturnValue = "Apple TV"
         
         // When
-        try? self.sut.save(referenceImage: testImage, functionName: "testFunctionName", options: [.type])
+        try? self.sut.save(referenceImage: testImage, functionName: "testFunctionName", options: [.modelType])
         
         // Then
         XCTAssertEqual(self.dataHandlerMock.writeInvokeCount, 1)
@@ -195,7 +195,7 @@ class SnapshotFileManagerTests: XCTestCase {
         XCTAssertEqual(self.dataHandlerMock.writePathArgument, URL(string: "/testFunctionName_11_0_3.png")!)
     }
     
-    func testSave_withOptionsTypeAndOSVersionAndTypeIsIpadAndVersionIs10_2_0_shouldWriteDataWithCorrectFileName() {
+    func testSave_withOptionsModelTypeAndOSVersionAndModelTypeIsIpadAndVersionIs10_2_0_shouldWriteDataWithCorrectFileName() {
         // Given
         self.configureSutWithExistingReferenceImageDirectory()
         let testImage = self.image(for: "redSquare")
@@ -203,7 +203,7 @@ class SnapshotFileManagerTests: XCTestCase {
         self.deviceInformationProviderMock.systemVersionReturnValue = "10.2"
         
         // When
-        try? self.sut.save(referenceImage: testImage, functionName: "testFunctionName", options: [.type, .osVersion])
+        try? self.sut.save(referenceImage: testImage, functionName: "testFunctionName", options: [.modelType, .osVersion])
         
         // Then
         XCTAssertEqual(self.dataHandlerMock.writeInvokeCount, 1)

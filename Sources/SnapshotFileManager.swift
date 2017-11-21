@@ -130,7 +130,7 @@ class SnapshotFileManager : SnapshotFileManaging {
     private func segment(`for` options: DeviceOptions) -> String {
         var segment = ""
         
-        if options.contains(.type) {
+        if options.contains(.modelType) {
             segment.append(self.typeSegment())
         }
         

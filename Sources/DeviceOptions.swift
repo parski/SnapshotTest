@@ -30,6 +30,6 @@ import Foundation
 struct DeviceOptions : OptionSet {
     let rawValue: Int
     
-    static let type = DeviceOptions(rawValue: 1 << 0)
+    static let modelType = DeviceOptions(rawValue: 1 << 0)
     static let osVersion = DeviceOptions(rawValue: 1 << 1)
 }
