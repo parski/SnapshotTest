@@ -76,13 +76,13 @@ class SnapshotTestCaseTests: XCTestCase {
 
     // MARK: Record Snapshot
 
-    func testRecordSnapshot_withRedView_shouldSaveReferenceImageOfViewWithCorrectFunctionName() {
+    func testRecordSnapshot_withRedView_shouldSaveReferenceImageOfViewWithCorrectFunctionName() throws {
         // Given
         let view = self.redSquareView()
         let functionName = "testView"
 
         // When
-        try? self.sut.recordSnapshot(of: view, functionName: functionName)
+        try self.sut.recordSnapshot(of: view, functionName: functionName)
 
         // Then
         XCTAssertEqual(self.fileManagerMock.saveInvokeCount, 1)
