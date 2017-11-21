@@ -34,11 +34,11 @@ class DeviceInformationProviderMock : DeviceInformationProviding {
     var systemVersionReturnValue: String? = nil
     
     var model: String {
-        return self.modelReturnValue!
+        return self.modelReturnValue ?? ""
     }
     
     var systemVersion: String {
-        return self.systemVersionReturnValue!
+        return self.systemVersionReturnValue ?? ""
     }
     
 }
