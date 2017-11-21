@@ -127,7 +127,7 @@ class SnapshotFileManager : SnapshotFileManaging {
         return functionName.appending(self.segment(for: options))
     }
     
-    private func segment(`for` options: DeviceOptions) -> String {
+    private func segment(for options: DeviceOptions) -> String {
         var segment = ""
         
         if options.contains(.modelType) {
