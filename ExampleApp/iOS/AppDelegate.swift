@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  ExampleApp
+//  ExampleApp-iOS
 //
 //  Copyright © 2017 SnapshotTest. All rights reserved.
 //
