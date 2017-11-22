@@ -5,3 +5,4 @@ install:
 script:
 - echo "Hello World"
 - set -o pipefail && xcodebuild -project SnapshotTest.xcodeproj  -scheme "SnapshotTest-iOS" -configuration "Debug" -sdk "iphonesimulator" -destination "name=iPhone 7" clean test | xcpretty
+- set -o pipefail && xcodebuild -project SnapshotTest.xcodeproj  -scheme "SnapshotTest-tvOS" -configuration "Debug" -sdk "appletvossimulator" -destination "name=Apple TV" clean test | xcpretty
