@@ -1,6 +1,6 @@
 //
 //  DeviceOptions.swift
-//  SnapshotTest-iOS
+//  SnapshotTest
 //
 //  Copyright © 2017 SnapshotTest. All rights reserved.
 //

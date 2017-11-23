@@ -1,0 +1,7 @@
+language: objective-c
+osx_image: xcode9.1
+install:
+- bundle install --path vendor/bundle
+script:
+- set -o pipefail && xcodebuild -project SnapshotTest.xcodeproj -scheme "SnapshotTest-iOS" -configuration "Debug" -sdk "iphonesimulator" -destination "name=iPhone 7" clean test | bundle exec xcpretty
+- set -o pipefail && xcodebuild -project SnapshotTest.xcodeproj -scheme "SnapshotTest-tvOS" -configuration "Debug" -sdk "appletvsimulator" -destination "name=Apple TV" clean test | bundle exec xcpretty

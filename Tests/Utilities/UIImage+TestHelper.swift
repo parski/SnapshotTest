@@ -31,11 +31,11 @@ import UIKit
 extension UIImage {
 
     convenience init?(testFilename filename: String, ofType type: String) {
-        guard let bundle = Bundle(identifier: "com.SnapshotTest.SnapshotTest-iOS-Tests") else { return nil }
+        let bundle = Bundle(for: BundleTestClass.self)
         guard let path = bundle.path(forResource: filename, ofType: type) else { return nil }
         self.init(contentsOfFile: path)
     }
-
 }
 
+fileprivate class BundleTestClass { }
 
