@@ -22,7 +22,7 @@ class ViewTests: SnapshotTestCase {
         view.alter()
         
         // Then
-        Verify(view: view)
+        AssertSnapshot(view)
     }
     
 }
