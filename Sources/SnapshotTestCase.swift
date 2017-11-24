@@ -30,7 +30,6 @@ import XCTest
 
 public enum SnapshotError : Error {
     case unableToTakeSnapshot
-    case snapshotDifferentFromReferenceImage
 }
 
 public class SnapshotTestCase : XCTestCase {
