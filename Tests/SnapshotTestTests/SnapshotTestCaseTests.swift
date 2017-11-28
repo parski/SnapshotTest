@@ -73,6 +73,17 @@ class SnapshotTestCaseTests: XCTestCase {
         // Then
         XCTAssertFalse(result)
     }
+    
+    func testCompareSnapshot_withFunctionNameContainingParentheses_shouldInvokeFileManagerWithoutParentheses() throws {
+        // Given
+        let view = self.redSquareView()
+        
+        // When
+        _ = try self.sut.compareSnapshot(ofView: view, functionName: "testWithParentheses()")
+        
+        // Then
+        XCTAssertEqual(self.fileManagerMock.referenceImageFunctionNameArgument, "testWithParentheses")
+    }
 
     // MARK: Record Snapshot
 
@@ -101,6 +112,17 @@ class SnapshotTestCaseTests: XCTestCase {
 
         // Then
         catch { XCTAssertTrue(error as! SnapshotFileManagerError == errorToThrow) }
+    }
+    
+    func testRecordSnapshot_withFunctionNameContainingParentheses_shouldInvokeFileManagerWithoutParentheses() throws {
+        // Given
+        let view = self.redSquareView()
+        
+        // When
+        try self.sut.recordSnapshot(of: view, functionName: "testWithParentheses()")
+        
+        // Then
+        XCTAssertEqual(self.fileManagerMock.saveFunctionNameArgument, "testWithParentheses")
     }
 
     private func redSquareView() -> UIView {

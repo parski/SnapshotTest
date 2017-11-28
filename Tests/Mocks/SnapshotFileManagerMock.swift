@@ -56,7 +56,7 @@ class SnapshotFileManagerMock : SnapshotFileManaging {
         self.referenceImageFunctionNameArgument = functionName
         self.referenceImageOptionsArgument = options
         if let error = self.referenceImageErrorToThrow { throw error }
-        return self.referenceImageReturnValue!
+        return self.referenceImageReturnValue ?? UIImage()
     }
     
     
