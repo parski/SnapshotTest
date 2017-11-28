@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = "SnapshotTest"
   s.version      = "0.1"
-  s.summary      = ""
+  s.summary      = "Snapshot testing tool for iOS and tvOS"
   s.description  = <<-DESC
     Your description here.
   DESC
@@ -13,5 +13,5 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = "8.0"
   s.source       = { :git => "https://github.com/parski/SnapshotTest.git", :tag => s.version.to_s }
   s.source_files  = "Sources/**/*"
-  s.frameworks  = "Foundation"
+  s.frameworks  = "Foundation", "XCTest"
 end

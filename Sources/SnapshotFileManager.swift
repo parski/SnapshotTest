@@ -39,7 +39,7 @@ class DataHandler : DataHandling {
     }
     
     func image(from path: URL) -> UIImage? {
-        return UIImage(contentsOfFile: path.absoluteString)
+        return UIImage(contentsOfFile: path.path)
     }
 }
 
