@@ -30,7 +30,6 @@ import XCTest
 
 public enum SnapshotError : Error {
     case unableToTakeSnapshot
-    case snapshotDifferentFromReferenceImage
 }
 
 public class SnapshotTestCase : XCTestCase {
@@ -38,7 +37,7 @@ public class SnapshotTestCase : XCTestCase {
     var fileManager: SnapshotFileManaging = SnapshotFileManager()
     var options: DeviceOptions = []
     
-    func Verify(view: UIView, functionName: String = #function, file: StaticString = #file, line: UInt = #line) {
+    func AssertSnapshot(_ view: UIView, functionName: String = #function, file: StaticString = #file, line: UInt = #line) {
         do {
             guard self.recordMode == false else {
                 try self.recordSnapshot(of: view, functionName: functionName)
