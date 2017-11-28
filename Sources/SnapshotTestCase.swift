@@ -30,31 +30,51 @@ import XCTest
 
 public enum SnapshotError : Error {
     case unableToTakeSnapshot
+    case snapshotNotMatchingReference(snapshot: UIImage, reference: UIImage)
 }
 
 open class SnapshotTestCase : XCTestCase {
-    var recordMode: Bool = false
+
     var fileManager: SnapshotFileManaging = SnapshotFileManager()
     var options: DeviceOptions = []
+
+    open var recordMode: Bool = false
     
     public func AssertSnapshot(_ view: UIView, functionName: String = #function, file: StaticString = #file, line: UInt = #line) {
         do {
-            guard self.recordMode == false else {
+            if recordMode {
                 try self.recordSnapshot(of: view, functionName: functionName)
-                XCTAssert(false, "🔴 RECORD MODE: Reference image saved.")
-                return
+                XCTAssert(false, "🔴 RECORD MODE: Reference image saved.", file: file, line: line)
             }
-            let isEqualToSnapshot = try self.compareSnapshot(ofView: view, functionName: functionName, file: file, line: line)
-            guard isEqualToSnapshot else { XCTAssert(false, "\(functionName) is different from the reference image."); return }
-            XCTAssertTrue(true)
-        } catch { XCTAssert(false, "\(functionName) - \(file):\(line) failed with error: \(error)") }
+            else {
+               try self.compareSnapshot(ofView: view, functionName: functionName, file: file, line: line)
+            }
+        }
+        catch SnapshotError.unableToTakeSnapshot {
+            XCTAssert(false, "\(file):\(line):\(functionName) - Unable to take snapshot of \(view)", file: file, line: line);
+        }
+        catch SnapshotError.snapshotNotMatchingReference(snapshot: let snapshotImage, reference: let referenceImage) {
+            let snapshotAttachment = XCTAttachment(image: snapshotImage)
+            snapshotAttachment.name = "View snapshot image"
+            add(snapshotAttachment)
+
+            let referenceAttachment = XCTAttachment(image: referenceImage)
+            referenceAttachment.name = "Reference image"
+            add(referenceAttachment)
+            XCTAssert(false, "\(functionName) is different from the reference image.", file: file, line: line);
+        }
+        catch {
+            XCTAssert(false, "\(file):\(line):\(functionName) - failed with error: \(error)", file: file, line: line)
+        }
     }
     
-    func compareSnapshot(ofView view: UIView, functionName: String = #function, file: StaticString = #file, line: UInt = #line) throws -> Bool {
-        guard let snapshot = self.image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
+    func compareSnapshot(ofView view: UIView, functionName: String = #function, file: StaticString = #file, line: UInt = #line) throws {
+        guard let snapshotImage = self.image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
         let referenceImage = try self.fileManager.referenceImage(forFunctionName: functionName, options: self.options )
 
-        return snapshot.normalizedData() == referenceImage.normalizedData()
+        if snapshotImage.normalizedData() != referenceImage.normalizedData() {
+            throw SnapshotError.snapshotNotMatchingReference(snapshot: snapshotImage, reference: referenceImage)
+        }
     }
     
     func recordSnapshot(of view: UIView, functionName: String) throws {
