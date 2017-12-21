@@ -52,14 +52,14 @@ open class SnapshotTestCase : XCTestCase {
     
     func compareSnapshot(ofView view: UIView, functionName: String = #function, file: StaticString = #file, line: UInt = #line) throws -> Bool {
         guard let snapshot = self.image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
-        let referenceImage = try self.fileManager.referenceImage(forFunctionName: functionName, options: self.options )
+        let referenceImage = try self.fileManager.referenceImage(forFunctionName: functionName.formatted(), options: self.options )
 
         return snapshot.normalizedData() == referenceImage.normalizedData()
     }
     
     func recordSnapshot(of view: UIView, functionName: String) throws {
         guard let referenceImage = self.image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
-        try self.fileManager.save(referenceImage: referenceImage, functionName: functionName, options: self.options)
+        try self.fileManager.save(referenceImage: referenceImage, functionName: functionName.formatted(), options: self.options)
     }
     
     private func image(forView view: UIView) -> UIImage? {
@@ -74,4 +74,16 @@ open class SnapshotTestCase : XCTestCase {
         return image
     }
 
+}
+
+private extension String {
+    
+    func formatted() -> String {
+        let validCharacters = CharacterSet(charactersIn: "()").inverted
+        
+        return String(self.unicodeScalars.filter { unicodeScalar -> Bool in
+            return validCharacters.contains(unicodeScalar)
+        })
+    }
+    
 }
