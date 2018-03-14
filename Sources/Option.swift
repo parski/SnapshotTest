@@ -1,6 +1,6 @@
 //
-//  EnvironmentalVariableProviderMock.swift
-//  SnapshotTestCaseTests
+//  Option.swift
+//  SnapshotTest
 //
 //  Copyright © 2017 SnapshotTest. All rights reserved.
 //
@@ -25,16 +25,36 @@
 //  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-@testable import SnapshotTest
 import Foundation
+import UIKit
 
-class EnvironmentalVariableProviderMock : EnvironmentalVariableProviding {
-    
-    var referenceImageDirectoryInvokeCount: Int = 0
-    var referenceImageDirectoryReturnValue: URL? = nil
-    
-    func referenceImageDirectory() -> URL? {
-        self.referenceImageDirectoryInvokeCount += 1
-        return self.referenceImageDirectoryReturnValue
+public enum Option {
+    case tolerance(CGFloat)
+    case device
+    case osVersion
+}
+
+
+extension Option : Hashable {
+    public var hashValue: Int {
+        switch self {
+            case .tolerance(let tolerance):
+                return Int(10000 + (tolerance * 1000))
+            case .device:
+                return 10
+            case .osVersion:
+                return 1
+        }
+    }
+}
+
+extension Option : Equatable {
+    public static func ==(lhs: Option, rhs: Option) -> Bool {
+        switch (lhs, rhs) {
+            case (.tolerance(let lhsTolerance), .tolerance(let rhsTolerance)): return lhsTolerance == rhsTolerance
+            case (.device, .device): return true
+            case (.osVersion, .osVersion): return true
+            default: return false
+        }
     }
 }

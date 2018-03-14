@@ -1,8 +1,8 @@
 //
-//  DeviceInformationProviderMock.swift
-//  SnapshotTest-iOS
+//  UIDeviceMock.swift
+//  SnapshotTest
 //
-//  Copyright © 2017 SnapshotTest. All rights reserved.
+//  Copyright © 2018 SnapshotTest. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -25,20 +25,24 @@
 //  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-@testable import SnapshotTest
-import Foundation
+import UIKit
 
-class DeviceInformationProviderMock : DeviceInformationProviding {
-    
-    var modelReturnValue: String? = nil
-    var systemVersionReturnValue: String? = nil
-    
-    var model: String {
-        return self.modelReturnValue ?? ""
+class UIDeviceMock : UIDevice {
+
+    var _model: String
+    var _systemVersion: String
+
+    init(model: String = "", systemVersion: String = "") {
+        self._model = model
+        self._systemVersion = systemVersion
     }
-    
-    var systemVersion: String {
-        return self.systemVersionReturnValue ?? ""
+
+    override var model: String {
+        return _model
     }
-    
+
+    override var systemVersion: String {
+        return _systemVersion
+    }
+
 }

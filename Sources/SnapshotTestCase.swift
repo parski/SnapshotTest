@@ -28,62 +28,27 @@
 import UIKit
 import XCTest
 
-public enum SnapshotError : Error {
-    case unableToTakeSnapshot
-}
-
 open class SnapshotTestCase : XCTestCase {
-    var recordMode: Bool = false
-    var fileManager: SnapshotFileManaging = SnapshotFileManager()
-    var options: DeviceOptions = []
-    
-    public func AssertSnapshot(_ view: UIView, functionName: String = #function, file: StaticString = #file, line: UInt = #line) {
+
+    open var recordMode: Bool = false
+
+    var coordinator: SnapshotCoordinating = SnapshotCoordinator()
+
+    public func AssertSnapshot(_ view: UIView, options: Options = [], functionName: String = #function, file: StaticString = #file, line: UInt = #line) {
         do {
-            guard self.recordMode == false else {
-                try self.recordSnapshot(of: view, functionName: functionName)
-                XCTAssert(false, "🔴 RECORD MODE: Reference image saved.")
-                return
+            if self.recordMode {
+                try coordinator.recordSnapshot(of: view, options: options, functionName: functionName, file: file, line: line)
+                XCTFail("🔴 RECORD MODE: Reference image saved.")
             }
-            let isEqualToSnapshot = try self.compareSnapshot(ofView: view, functionName: functionName, file: file, line: line)
-            guard isEqualToSnapshot else { XCTAssert(false, "\(functionName) is different from the reference image."); return }
-            XCTAssertTrue(true)
-        } catch { XCTAssert(false, "\(functionName) - \(file):\(line) failed with error: \(error)") }
-    }
-    
-    func compareSnapshot(ofView view: UIView, functionName: String = #function, file: StaticString = #file, line: UInt = #line) throws -> Bool {
-        guard let snapshot = self.image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
-        let referenceImage = try self.fileManager.referenceImage(forFunctionName: functionName.formatted(), options: self.options )
+            else {
+                try coordinator.compareSnapshot(of: view, options: options, functionName: functionName, file: file, line: line)
+                XCTAssertTrue(true)
+            }
+        } catch SnapshotError.imageMismatch(let filename) {
+            XCTAssert(false, "\(filename) is different from the reference image.", file: file, line: line)
+        } catch {
+            XCTAssert(false, "\(functionName) - \(error)", file: file, line: line)
+        }
 
-        return snapshot.normalizedData() == referenceImage.normalizedData()
     }
-    
-    func recordSnapshot(of view: UIView, functionName: String) throws {
-        guard let referenceImage = self.image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
-        try self.fileManager.save(referenceImage: referenceImage, functionName: functionName.formatted(), options: self.options)
-    }
-    
-    private func image(forView view: UIView) -> UIImage? {
-
-        UIGraphicsBeginImageContext(view.bounds.size)
-        view.layoutIfNeeded()
-        view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        return image
-    }
-
-}
-
-private extension String {
-    
-    func formatted() -> String {
-        let validCharacters = CharacterSet(charactersIn: "()").inverted
-        
-        return String(self.unicodeScalars.filter { unicodeScalar -> Bool in
-            return validCharacters.contains(unicodeScalar)
-        })
-    }
-    
 }

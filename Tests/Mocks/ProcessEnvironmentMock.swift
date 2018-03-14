@@ -1,8 +1,8 @@
 //
-//  SnapshotTest.swift
+//  ProcessEnvironmentMock.swift
 //  SnapshotTest
 //
-//  Copyright © 2017 SnapshotTest. All rights reserved.
+//  Copyright © 2018 SnapshotTest. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -25,4 +25,10 @@
 //  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+@testable import SnapshotTest
 import Foundation
+
+class ProcessEnvironmentMock : ProcessEnvironment {
+
+    var environment: [String : String] = [:]
+}
