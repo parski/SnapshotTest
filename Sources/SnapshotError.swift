@@ -1,8 +1,8 @@
 //
-//  DeviceOptions.swift
+//  SnapshotError.swift
 //  SnapshotTest
 //
-//  Copyright © 2017 SnapshotTest. All rights reserved.
+//  Copyright © 2018 SnapshotTest. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -27,9 +27,21 @@
 
 import Foundation
 
-struct DeviceOptions : OptionSet {
-    let rawValue: Int
-    
-    static let modelType = DeviceOptions(rawValue: 1 << 0)
-    static let osVersion = DeviceOptions(rawValue: 1 << 1)
+public enum SnapshotError : Error {
+    case imageMismatch(filename: String)
+    case unableToTakeSnapshot
+}
+
+extension SnapshotError : Equatable {
+
+    public static func ==(lhs: SnapshotError, rhs: SnapshotError) -> Bool {
+        switch (lhs, rhs) {
+            case (.imageMismatch(let lhsFilename), .imageMismatch(let rhsFilename)):
+                return lhsFilename == rhsFilename
+            case (.unableToTakeSnapshot, unableToTakeSnapshot):
+                return true
+            default:
+                return false
+        }
+    }
 }

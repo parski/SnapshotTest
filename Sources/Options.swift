@@ -1,6 +1,6 @@
 //
-//  SnapshotFileManagerMock.swift
-//  SnapshotTestCaseTests
+//  Options.swift
+//  SnapshotTest
 //
 //  Copyright © 2017 SnapshotTest. All rights reserved.
 //
@@ -25,33 +25,50 @@
 //  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-@testable import SnapshotTest
-import Foundation
-import UIKit
+public struct Options {
 
-class SnapshotFileManagerMock : SnapshotFileManaging {
+    private var array: [Option] = []
+    private var set: Set<Option> = []
 
-    var saveInvokeCount: Int = 0
-    var saveReferenceImageArgument: UIImage? = nil
-    var saveFilenameArgument: String? = nil
-    var saveErrorToThrow: Error? = nil
-    
-    var referenceImageInvokeCount: Int = 0
-    var referenceImageFilenameArgument: String? = nil
-    var referenceImageErrorToThrow: Error? = nil
-    var referenceImageReturnValue: UIImage? = nil
-    
-    func save(referenceImage: UIImage, filename: String) throws {
-        self.saveInvokeCount += 1
-        self.saveReferenceImageArgument = referenceImage
-        self.saveFilenameArgument = filename
-        if let error = self.saveErrorToThrow { throw error }
+    public var count: Int { return array.count }
+    public var isEmpty: Bool { return array.isEmpty }
+
+    public init(_ array: [Option]) {
+        for element in array {
+            append(element)
+        }
     }
-    
-    func referenceImage(filename: String) throws -> UIImage {
-        self.referenceImageInvokeCount += 1
-        self.referenceImageFilenameArgument = filename
-        if let error = self.referenceImageErrorToThrow { throw error }
-        return self.referenceImageReturnValue ?? UIImage()
+
+    @discardableResult
+    public mutating func append(_ newElement: Option) -> Bool {
+        let inserted = set.insert(newElement).inserted
+        if inserted {
+            array.append(newElement)
+        }
+        return inserted
     }
 }
+
+extension Options : Sequence {
+
+    public func contains(_ member: Option) -> Bool {
+        return set.contains(member)
+    }
+}
+
+extension Options : ExpressibleByArrayLiteral {
+
+    public init(arrayLiteral elements: Option...) {
+        self.init(elements)
+    }
+}
+
+extension Options: RandomAccessCollection {
+
+    public var startIndex: Int { return array.startIndex }
+    public var endIndex: Int { return array.endIndex }
+    public subscript(index: Int) -> Option {
+        return array[index]
+    }
+}
+
