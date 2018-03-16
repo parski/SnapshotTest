@@ -28,7 +28,6 @@
 import UIKit
 
 public enum Option {
-    case tolerance(CGFloat)
     case device
     case osVersion
 }
@@ -36,8 +35,6 @@ public enum Option {
 extension Option : Hashable {
     public var hashValue: Int {
         switch self {
-            case .tolerance(let tolerance):
-                return Int(10000 + (tolerance * 1000))
             case .device:
                 return 10
             case .osVersion:
@@ -49,7 +46,6 @@ extension Option : Hashable {
 extension Option : Equatable {
     public static func ==(lhs: Option, rhs: Option) -> Bool {
         switch (lhs, rhs) {
-            case (.tolerance(let lhsTolerance), .tolerance(let rhsTolerance)): return lhsTolerance == rhsTolerance
             case (.device, .device): return true
             case (.osVersion, .osVersion): return true
             default: return false
