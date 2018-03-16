@@ -35,7 +35,7 @@ class ViewTests: SnapshotTestCase {
     
     func testView_withAlteration() {
         // Given
-        let view = View()
+        let view = View(frame: CGRect(x: 0, y: 0, width: 375, height: 100))
         
         // When
         view.alter()
