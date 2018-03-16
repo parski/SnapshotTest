@@ -95,7 +95,7 @@ class SnapshotFileManager {
         return URL(fileURLWithPath: environmentReferenceImageDirectory)
     }()
     
-    private func path(filename: String) throws -> URL {
+    private func path(for filename: String) throws -> URL {
         guard let referenceImageDirectory = referenceImageDirectory else { throw SnapshotFileManagerError.unableToDetermineReferenceImageDirectory }
 
         return referenceImageDirectory.appendingPathComponent(filename).appendingPathExtension("png")
@@ -105,19 +105,19 @@ class SnapshotFileManager {
 extension SnapshotFileManager : SnapshotFileManaging {
 
     func save(referenceImage: UIImage, filename: String) throws {
-        guard let referenceImageDirectory = self.referenceImageDirectory else { throw SnapshotFileManagerError.unableToDetermineReferenceImageDirectory }
-        if self.fileManager.fileExists(atPath: referenceImageDirectory.absoluteString) == false {
-            try self.fileManager.createDirectory(at: referenceImageDirectory, withIntermediateDirectories: true, attributes: nil)
+        guard let referenceImageDirectory = referenceImageDirectory else { throw SnapshotFileManagerError.unableToDetermineReferenceImageDirectory }
+        if fileManager.fileExists(atPath: referenceImageDirectory.absoluteString) == false {
+            try fileManager.createDirectory(at: referenceImageDirectory, withIntermediateDirectories: true, attributes: nil)
         }
 
-        let path = try self.path(filename: filename)
+        let path = try self.path(for: filename)
         guard let imagePngData = UIImagePNGRepresentation(referenceImage) else { throw SnapshotFileManagerError.unableToSerializeReferenceImage }
-        try self.dataHandler.write(imagePngData, to: path, options: .atomicWrite)
+        try dataHandler.write(imagePngData, to: path, options: .atomicWrite)
     }
 
     func referenceImage(filename: String) throws -> UIImage {
-        let path = try self.path(filename: filename)
-        guard let referenceImage = self.dataHandler.image(from: path) else { throw SnapshotFileManagerError.unableToDeserializeReferenceImage }
+        let path = try self.path(for: filename)
+        guard let referenceImage = dataHandler.image(from: path) else { throw SnapshotFileManagerError.unableToDeserializeReferenceImage }
 
         return referenceImage
     }

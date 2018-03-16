@@ -36,7 +36,7 @@ open class SnapshotTestCase : XCTestCase {
 
     public func AssertSnapshot(_ view: UIView, options: Options = [], functionName: String = #function, file: StaticString = #file, line: UInt = #line) {
         do {
-            if self.recordMode {
+            if recordMode {
                 try coordinator.recordSnapshot(of: view, options: options, functionName: functionName, file: file, line: line)
                 XCTFail("🔴 RECORD MODE: Reference image saved.")
             }

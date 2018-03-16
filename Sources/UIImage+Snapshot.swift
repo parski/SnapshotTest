@@ -35,9 +35,9 @@ extension UIImage {
             UIGraphicsEndImageContext()
         }
 
-        UIGraphicsBeginImageContext(self.size)
+        UIGraphicsBeginImageContext(size)
 
-        self.draw(in: CGRect(origin: .zero, size: self.size))
+        draw(in: CGRect(origin: .zero, size: size))
         guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
 
         return UIImagePNGRepresentation(image)

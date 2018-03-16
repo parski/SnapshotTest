@@ -36,15 +36,15 @@ class SnapshotCoordinatorTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        self.fileManagerMock = SnapshotFileManagerMock()
-        self.filenameFormatter = FilenameFormattingMock()
-        self.sut = SnapshotCoordinator(fileManager: self.fileManagerMock, filenameFormatter: filenameFormatter)
+        fileManagerMock = SnapshotFileManagerMock()
+        filenameFormatter = FilenameFormattingMock()
+        sut = SnapshotCoordinator(fileManager: fileManagerMock, filenameFormatter: filenameFormatter)
     }
     
     override func tearDown() {
-        self.filenameFormatter = nil
-        self.fileManagerMock = nil
-        self.sut = nil
+        filenameFormatter = nil
+        fileManagerMock = nil
+        sut = nil
         super.tearDown()
     }
     
@@ -53,11 +53,11 @@ class SnapshotCoordinatorTests: XCTestCase {
     func testCompareSnapshot_withViewEqualToReferenceImage_shouldNotThrowError() {
 
         // Given
-        let view = self.redSquareView()
-        self.fileManagerMock.referenceImageReturnValue = UIImage(testFilename: "redSquare", ofType: "png")
+        let view = redSquareView()
+        fileManagerMock.referenceImageReturnValue = UIImage(testFilename: "redSquare", ofType: "png")
 
         // When
-        XCTAssertNoThrow(try self.sut.compareSnapshot(of: view, options: [], functionName: "redSquare", file: "", line: 0))
+        XCTAssertNoThrow(try sut.compareSnapshot(of: view, options: [], functionName: "redSquare", file: "", line: 0))
     }
     
     func testCompareSnapshot_withViewNotEqualToReferenceImage_shouldThrowError() {
@@ -65,11 +65,11 @@ class SnapshotCoordinatorTests: XCTestCase {
         // Given
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         view.backgroundColor = .blue
-        self.fileManagerMock.referenceImageReturnValue = UIImage(testFilename: "redSquare", ofType: "png")
-        self.filenameFormatter.formatReturnValue = "File_redSquare"
+        fileManagerMock.referenceImageReturnValue = UIImage(testFilename: "redSquare", ofType: "png")
+        filenameFormatter.formatReturnValue = "File_redSquare"
 
         // When
-        XCTAssertThrowsError(try self.sut.compareSnapshot(of: view, options: [], functionName: "redSquare", file: "File.swift", line: 0)) { error in
+        XCTAssertThrowsError(try sut.compareSnapshot(of: view, options: [], functionName: "redSquare", file: "File.swift", line: 0)) { error in
             XCTAssertEqual(error as? SnapshotError, SnapshotError.imageMismatch(filename: "File_redSquare"))
         }
     }
@@ -79,25 +79,25 @@ class SnapshotCoordinatorTests: XCTestCase {
     func testRecordSnapshot_withRedView_shouldSaveReferenceImageOfViewWithCorrectFunctionName() throws {
 
         // Given
-        let view = self.redSquareView()
-        self.filenameFormatter.formatReturnValue = "File_redSquare"
+        let view = redSquareView()
+        filenameFormatter.formatReturnValue = "File_redSquare"
 
         // When
-        try self.sut.recordSnapshot(of: view, options: [], functionName: "redSquare", file: "", line: 0)
+        try sut.recordSnapshot(of: view, options: [], functionName: "redSquare", file: "", line: 0)
 
         // Then
-        XCTAssertEqual(self.fileManagerMock.saveInvokeCount, 1)
-        XCTAssertNotNil(self.fileManagerMock.saveReferenceImageArgument)
-        XCTAssertEqual(self.fileManagerMock.saveFilenameArgument, "File_redSquare")
+        XCTAssertEqual(fileManagerMock.saveInvokeCount, 1)
+        XCTAssertNotNil(fileManagerMock.saveReferenceImageArgument)
+        XCTAssertEqual(fileManagerMock.saveFilenameArgument, "File_redSquare")
     }
 
     func testRecordSnapshot_withFileManagerError_shouldThrowSameError() {
         // Given
-        let view = self.redSquareView()
-        self.fileManagerMock.saveErrorToThrow = SnapshotFileManagerError.unableToSerializeReferenceImage
+        let view = redSquareView()
+        fileManagerMock.saveErrorToThrow = SnapshotFileManagerError.unableToSerializeReferenceImage
 
         // When
-        XCTAssertThrowsError(try self.sut.recordSnapshot(of: view, options: [], functionName: "", file: "", line: 0)) { error in
+        XCTAssertThrowsError(try sut.recordSnapshot(of: view, options: [], functionName: "", file: "", line: 0)) { error in
             // Then
             XCTAssertEqual(error as? SnapshotFileManagerError, SnapshotFileManagerError.unableToSerializeReferenceImage)
         }

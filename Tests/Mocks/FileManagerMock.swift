@@ -40,16 +40,16 @@ class FileManagerMock : FileManager {
     var createDirectoryErrorToThrow: Error? = nil
     
     override func fileExists(atPath path: String) -> Bool {
-        self.fileExistsInvokeCount += 1
-        self.fileExistsPathArgument = path
-        return self.fileExistsReturnValue
+        fileExistsInvokeCount += 1
+        fileExistsPathArgument = path
+        return fileExistsReturnValue
     }
     
     override func createDirectory(at url: URL, withIntermediateDirectories createIntermediates: Bool, attributes: [FileAttributeKey : Any]? = nil) throws {
-        self.createDirectoryInvokeCount += 1
-        self.createDirectoryUrlArgument = url
-        self.createDirectoryCreateIntermediariesArgument = createIntermediates
-        if let error = self.createDirectoryErrorToThrow { throw error }
+        createDirectoryInvokeCount += 1
+        createDirectoryUrlArgument = url
+        createDirectoryCreateIntermediariesArgument = createIntermediates
+        if let error = createDirectoryErrorToThrow { throw error }
     }
     
 }
