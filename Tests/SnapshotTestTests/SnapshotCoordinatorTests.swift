@@ -1,6 +1,6 @@
 //
 //  SnapshotCoordinatorTests.swift
-//  SnapshotTestCaseTests
+//  SnapshotTest
 //
 //  Copyright © 2017 SnapshotTest. All rights reserved.
 //

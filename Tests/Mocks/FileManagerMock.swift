@@ -1,6 +1,6 @@
 //
-//  POPFileManagerMock.swift
-//  POPSnapshotTestCaseTests
+//  FileManagerMock.swift
+//  SnapshotTest
 //
 //  Copyright © 2017 SnapshotTest. All rights reserved.
 //
