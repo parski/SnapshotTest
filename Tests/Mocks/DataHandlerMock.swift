@@ -26,7 +26,6 @@
 //
 
 @testable import SnapshotTest
-import Foundation
 import UIKit
 
 class DataHandlerMock : DataHandling {
