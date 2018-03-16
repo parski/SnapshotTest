@@ -71,4 +71,3 @@ extension Options: RandomAccessCollection {
         return array[index]
     }
 }
-

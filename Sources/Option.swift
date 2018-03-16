@@ -34,7 +34,6 @@ public enum Option {
     case osVersion
 }
 
-
 extension Option : Hashable {
     public var hashValue: Int {
         switch self {

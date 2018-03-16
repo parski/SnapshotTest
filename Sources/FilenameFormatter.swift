@@ -27,7 +27,6 @@
 
 import UIKit
 
-
 protocol FilenameFormatting {
     func format(sourceFile: StaticString, functionName: String, options: Options) -> String
 }
