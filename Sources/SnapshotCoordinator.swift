@@ -43,7 +43,7 @@ struct SnapshotCoordinator {
     }
 
     private func image(forView view: UIView) -> UIImage? {
-        UIGraphicsBeginImageContext(view.bounds.size)
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
         view.layoutIfNeeded()
         view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
 
