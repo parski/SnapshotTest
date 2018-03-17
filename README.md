@@ -52,8 +52,11 @@ To set the test case to record mode simply change the `recordMode` property to t
 
 ```swift
 class ViewTests: SnapshotTestCase {
-
-    recordMode = true
+    
+    override func setUp() {
+        super.setUp()
+	recordMode = true
+    }
     
 }
 ```
