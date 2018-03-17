@@ -38,11 +38,11 @@ open class SnapshotTestCase : XCTestCase {
         do {
             if recordMode {
                 try coordinator.recordSnapshot(of: view, options: options, functionName: functionName, file: file, line: line)
-                XCTFail("🔴 RECORD MODE: Reference image saved.")
+                XCTFail("🔴 RECORD MODE: Reference image saved.", file: file, line: line)
             }
             else {
                 try coordinator.compareSnapshot(of: view, options: options, functionName: functionName, file: file, line: line)
-                XCTAssertTrue(true)
+                XCTAssertTrue(true, file: file, line: line)
             }
         } catch SnapshotError.imageMismatch(let filename) {
             XCTAssert(false, "\(filename) is different from the reference image.", file: file, line: line)
