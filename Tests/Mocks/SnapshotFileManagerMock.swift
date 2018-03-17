@@ -1,6 +1,6 @@
 //
 //  SnapshotFileManagerMock.swift
-//  SnapshotTestCaseTests
+//  SnapshotTest
 //
 //  Copyright © 2017 SnapshotTest. All rights reserved.
 //
@@ -26,7 +26,6 @@
 //
 
 @testable import SnapshotTest
-import Foundation
 import UIKit
 
 class SnapshotFileManagerMock : SnapshotFileManaging {
@@ -42,16 +41,16 @@ class SnapshotFileManagerMock : SnapshotFileManaging {
     var referenceImageReturnValue: UIImage? = nil
     
     func save(referenceImage: UIImage, filename: String) throws {
-        self.saveInvokeCount += 1
-        self.saveReferenceImageArgument = referenceImage
-        self.saveFilenameArgument = filename
-        if let error = self.saveErrorToThrow { throw error }
+        saveInvokeCount += 1
+        saveReferenceImageArgument = referenceImage
+        saveFilenameArgument = filename
+        if let error = saveErrorToThrow { throw error }
     }
     
     func referenceImage(filename: String) throws -> UIImage {
-        self.referenceImageInvokeCount += 1
-        self.referenceImageFilenameArgument = filename
-        if let error = self.referenceImageErrorToThrow { throw error }
-        return self.referenceImageReturnValue ?? UIImage()
+        referenceImageInvokeCount += 1
+        referenceImageFilenameArgument = filename
+        if let error = referenceImageErrorToThrow { throw error }
+        return referenceImageReturnValue ?? UIImage()
     }
 }

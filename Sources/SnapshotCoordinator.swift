@@ -43,7 +43,6 @@ struct SnapshotCoordinator {
     }
 
     private func image(forView view: UIView) -> UIImage? {
-
         UIGraphicsBeginImageContext(view.bounds.size)
         view.layoutIfNeeded()
         view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
@@ -58,10 +57,10 @@ struct SnapshotCoordinator {
 extension SnapshotCoordinator : SnapshotCoordinating {
 
     func compareSnapshot(of view: UIView, options: Options = [], functionName: String, file: StaticString, line: UInt) throws {
-        guard let snapshot = self.image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
+        guard let snapshot = image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
 
         let filename = filenameFormatter.format(sourceFile: file, functionName: functionName, options: options)
-        let referenceImage = try self.fileManager.referenceImage(filename: filename)
+        let referenceImage = try fileManager.referenceImage(filename: filename)
 
         guard snapshot.normalizedData() == referenceImage.normalizedData() else {
             throw SnapshotError.imageMismatch(filename: filename)
@@ -69,8 +68,8 @@ extension SnapshotCoordinator : SnapshotCoordinating {
     }
 
     func recordSnapshot(of view: UIView, options: Options = [], functionName: String, file: StaticString, line: UInt) throws {
-        guard let referenceImage = self.image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
+        guard let referenceImage = image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
         let filename = filenameFormatter.format(sourceFile: file, functionName: functionName, options: options)
-        try self.fileManager.save(referenceImage: referenceImage, filename: filename)
+        try fileManager.save(referenceImage: referenceImage, filename: filename)
     }
 }

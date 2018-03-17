@@ -44,4 +44,5 @@ extension SnapshotError : Equatable {
                 return false
         }
     }
+    
 }

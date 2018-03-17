@@ -1,6 +1,6 @@
 //
 //  DataHandlerMock.swift
-//  SnapshotTestCaseTests
+//  SnapshotTest
 //
 //  Copyright © 2017 SnapshotTest. All rights reserved.
 //
@@ -26,7 +26,6 @@
 //
 
 @testable import SnapshotTest
-import Foundation
 import UIKit
 
 class DataHandlerMock : DataHandling {
@@ -42,17 +41,17 @@ class DataHandlerMock : DataHandling {
     var imageReturnValue: UIImage? = nil
     
     func write(_ data: Data, to path: URL, options: Data.WritingOptions) throws {
-        self.writeInvokeCount += 1
-        self.writeDataArgument = data
-        self.writePathArgument = path
-        self.writeOptionsArgument = options
-        if let error = self.writeErrorToThrow { throw error }
+        writeInvokeCount += 1
+        writeDataArgument = data
+        writePathArgument = path
+        writeOptionsArgument = options
+        if let error = writeErrorToThrow { throw error }
     }
     
     func image(from path: URL) -> UIImage? {
-        self.imageInvokeCount += 1
-        self.imagePathArgument = path
-        return self.imageReturnValue
+        imageInvokeCount += 1
+        imagePathArgument = path
+        return imageReturnValue
     }
     
 }

@@ -33,8 +33,8 @@ class UIDeviceMock : UIDevice {
     var _systemVersion: String
 
     init(model: String = "", systemVersion: String = "") {
-        self._model = model
-        self._systemVersion = systemVersion
+        _model = model
+        _systemVersion = systemVersion
     }
 
     override var model: String {

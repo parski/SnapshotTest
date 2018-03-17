@@ -37,8 +37,6 @@
 		3F69E4FD1FB390630081155A /* SnapshotFileManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F69E4F11FB390630081155A /* SnapshotFileManagerTests.swift */; };
 		3F69E4FE1FB390630081155A /* SnapshotCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F69E4F21FB390630081155A /* SnapshotCoordinatorTests.swift */; };
 		3F69E4FF1FB390630081155A /* SnapshotCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F69E4F21FB390630081155A /* SnapshotCoordinatorTests.swift */; };
-		3F69E5001FB390630081155A /* SnapshotTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F69E4F31FB390630081155A /* SnapshotTestTests.swift */; };
-		3F69E5011FB390630081155A /* SnapshotTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F69E4F31FB390630081155A /* SnapshotTestTests.swift */; };
 		3F69E5041FB391130081155A /* redSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F69E5031FB391130081155A /* redSquare.png */; };
 		3F69E5051FB391130081155A /* redSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F69E5031FB391130081155A /* redSquare.png */; };
 		3F6B2A0D1FC190910006A9ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6B2A0C1FC190910006A9ED /* AppDelegate.swift */; };
@@ -101,7 +99,6 @@
 		3F69E4EF1FB390630081155A /* SnapshotFileManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotFileManagerMock.swift; sourceTree = "<group>"; };
 		3F69E4F11FB390630081155A /* SnapshotFileManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotFileManagerTests.swift; sourceTree = "<group>"; };
 		3F69E4F21FB390630081155A /* SnapshotCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotCoordinatorTests.swift; sourceTree = "<group>"; };
-		3F69E4F31FB390630081155A /* SnapshotTestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotTestTests.swift; sourceTree = "<group>"; };
 		3F69E5031FB391130081155A /* redSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redSquare.png; sourceTree = "<group>"; };
 		3F6B2A0A1FC190910006A9ED /* ExampleApp-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ExampleApp-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F6B2A0C1FC190910006A9ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -207,7 +204,6 @@
 				3F58EB742059B0450044E6E9 /* FilenameFormatterTests.swift */,
 				3F69E4F21FB390630081155A /* SnapshotCoordinatorTests.swift */,
 				3F69E4F11FB390630081155A /* SnapshotFileManagerTests.swift */,
-				3F69E4F31FB390630081155A /* SnapshotTestTests.swift */,
 			);
 			path = SnapshotTestTests;
 			sourceTree = "<group>";
@@ -597,7 +593,6 @@
 				3F69E4F81FB390630081155A /* FileManagerMock.swift in Sources */,
 				3F58EB722059A9CF0044E6E9 /* ProcessEnvironmentMock.swift in Sources */,
 				3F69E4FC1FB390630081155A /* SnapshotFileManagerTests.swift in Sources */,
-				3F69E5001FB390630081155A /* SnapshotTestTests.swift in Sources */,
 				3F58EB782059B4470044E6E9 /* UIDeviceMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -629,7 +624,6 @@
 				3F69E4F91FB390630081155A /* FileManagerMock.swift in Sources */,
 				3F58EB732059A9CF0044E6E9 /* ProcessEnvironmentMock.swift in Sources */,
 				3F69E4FD1FB390630081155A /* SnapshotFileManagerTests.swift in Sources */,
-				3F69E5011FB390630081155A /* SnapshotTestTests.swift in Sources */,
 				3F58EB792059B4470044E6E9 /* UIDeviceMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

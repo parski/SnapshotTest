@@ -27,7 +27,6 @@
 
 import UIKit
 
-
 protocol FilenameFormatting {
     func format(sourceFile: StaticString, functionName: String, options: Options) -> String
 }
@@ -52,8 +51,8 @@ class FilenameFormatter {
 extension FilenameFormatter : FilenameFormatting {
 
     func format(sourceFile: StaticString, functionName: String, options: Options) -> String {
-        let file = URL(fileURLWithPath: sourceFile.description).lastPathComponent.removeExtension()
-        var components: [String] = [file, functionName.formatted()]
+        let file = URL(fileURLWithPath: sourceFile.description).lastPathComponent.trimExtension()
+        var components: [String] = [file, functionName.trimParentheses()]
 
         if options.contains(.device) {
             components.append(deviceModel)
@@ -69,17 +68,12 @@ extension FilenameFormatter : FilenameFormatting {
 
 private extension String {
 
-    func removeExtension() -> String {
+    func trimExtension() -> String {
         let string = self as NSString
         return string.deletingPathExtension
     }
 
-    func formatted() -> String {
-        let validCharacters = CharacterSet(charactersIn: "()").inverted
-
-        return String(describing: self.unicodeScalars.filter { unicodeScalar -> Bool in
-            return validCharacters.contains(unicodeScalar)
-        })
+    func trimParentheses() -> String {
+        return replacingOccurrences(of: "()", with: "")
     }
 }
-
