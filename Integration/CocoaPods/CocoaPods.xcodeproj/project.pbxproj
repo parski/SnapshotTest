@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0F797F813BC082EEFBC1AF59 /* Pods_CocoaPods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD845447AC59C5642E50687C /* Pods_CocoaPods.framework */; };
+		3F665928208B4C44009FEEBC /* SnapshotTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F665927208B4C44009FEEBC /* SnapshotTestTests.swift */; };
 		3FC4E3BA1FCDDC690025C844 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC4E3B91FCDDC690025C844 /* AppDelegate.swift */; };
 		3FC4E3C11FCDDC690025C844 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FC4E3C01FCDDC690025C844 /* Assets.xcassets */; };
 		3FC4E3C41FCDDC690025C844 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FC4E3C21FCDDC690025C844 /* LaunchScreen.storyboard */; };
-		3FC4E3CF1FCDDC6A0025C844 /* CocoaPodsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC4E3CE1FCDDC6A0025C844 /* CocoaPodsTests.swift */; };
 		FA5F597379ADEA51E0654722 /* Pods_CocoaPodsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B421D4732C4306B9E858C26 /* Pods_CocoaPodsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,13 +27,13 @@
 
 /* Begin PBXFileReference section */
 		11FA3274E01BFCC5F8F78A87 /* Pods-CocoaPodsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3F665927208B4C44009FEEBC /* SnapshotTestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotTestTests.swift; path = ../../Shared/Tests/SnapshotTestTests.swift; sourceTree = "<group>"; };
 		3FC4E3B61FCDDC690025C844 /* CocoaPods.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocoaPods.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FC4E3B91FCDDC690025C844 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FC4E3C01FCDDC690025C844 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3FC4E3C31FCDDC690025C844 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3FC4E3C51FCDDC690025C844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FC4E3CA1FCDDC6A0025C844 /* CocoaPodsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaPodsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3FC4E3CE1FCDDC6A0025C844 /* CocoaPodsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaPodsTests.swift; sourceTree = "<group>"; };
 		3FC4E3D01FCDDC6A0025C844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B421D4732C4306B9E858C26 /* Pods_CocoaPodsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPodsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A621AA189ADAA34CC006E1A7 /* Pods-CocoaPods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPods.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPods/Pods-CocoaPods.release.xcconfig"; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 		3FC4E3CD1FCDDC6A0025C844 /* CocoaPodsTests */ = {
 			isa = PBXGroup;
 			children = (
-				3FC4E3CE1FCDDC6A0025C844 /* CocoaPodsTests.swift */,
+				3F665927208B4C44009FEEBC /* SnapshotTestTests.swift */,
 				3FC4E3D01FCDDC6A0025C844 /* Info.plist */,
 			);
 			path = CocoaPodsTests;
@@ -340,7 +340,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FC4E3CF1FCDDC6A0025C844 /* CocoaPodsTests.swift in Sources */,
+				3F665928208B4C44009FEEBC /* SnapshotTestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
