@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Carthage
+@testable import CarthageIntegration
 
 class CarthageTests: XCTestCase {
     
