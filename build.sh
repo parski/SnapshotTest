@@ -12,3 +12,8 @@ pushd Integration/CocoaPods/
 bundle exec pod install
 set -o pipefail && xcodebuild -workspace "CocoaPods.xcworkspace" -scheme "CocoaPods" -configuration "Debug" -sdk "iphonesimulator" -destination "name=iPhone 7" clean test | bundle exec xcpretty
 popd
+
+## Carthage
+pushd Integration/Carthage/
+carthage update
+popd
