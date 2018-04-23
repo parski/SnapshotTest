@@ -27,28 +27,8 @@
 
 import UIKit
 
-public enum Option {
+public enum Option : Hashable, Equatable {
     case device
     case osVersion
 }
 
-extension Option : Hashable {
-    public var hashValue: Int {
-        switch self {
-            case .device:
-                return 10
-            case .osVersion:
-                return 1
-        }
-    }
-}
-
-extension Option : Equatable {
-    public static func ==(lhs: Option, rhs: Option) -> Bool {
-        switch (lhs, rhs) {
-            case (.device, .device): return true
-            case (.osVersion, .osVersion): return true
-            default: return false
-        }
-    }
-}
