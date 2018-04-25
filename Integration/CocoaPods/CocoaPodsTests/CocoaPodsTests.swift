@@ -56,4 +56,23 @@ class CocoaPodsTests: SnapshotTestCase {
 
         AssertSnapshot(layer)
     }
+
+    func testViewControllerSnapshot() {
+
+        let label = UILabel()
+        label.text = "Hello World"
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = .lightGray
+        viewController.view.addSubview(label)
+        viewController.view.addConstraints([
+            label.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor)
+        ])
+
+        let navigationController = UINavigationController(rootViewController: viewController)
+
+        AssertSnapshot(navigationController)
+    }
 }

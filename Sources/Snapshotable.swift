@@ -57,3 +57,12 @@ extension UIView : Snapshotable {
         return layer.snapshot()
     }
 }
+
+extension UIViewController : Snapshotable {
+
+    public func snapshot() -> UIImage? {
+        beginAppearanceTransition(true, animated: false)
+        endAppearanceTransition()
+        return view.snapshot()
+    }
+}
