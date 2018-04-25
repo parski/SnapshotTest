@@ -40,8 +40,18 @@ class CocoaPodsTests: SnapshotTestCase {
     }
     
     func testViewSnapshot() {
+
+        let label = UILabel()
+        label.text = "Hello World"
+        label.translatesAutoresizingMaskIntoConstraints = false
+
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 200))
         view.backgroundColor = .red
+        view.addSubview(label)
+        view.addConstraints([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
 
         AssertSnapshot(view)
     }

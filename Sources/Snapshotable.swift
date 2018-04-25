@@ -54,6 +54,7 @@ extension CALayer : Snapshotable {
 extension UIView : Snapshotable {
 
     public func snapshot() -> UIImage? {
+        layoutIfNeeded()
         return layer.snapshot()
     }
 }
