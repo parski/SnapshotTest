@@ -28,8 +28,8 @@
 import UIKit
 
 protocol SnapshotCoordinating {
-    func compareSnapshot(of view: UIView, options: Options, functionName: String, line: UInt) throws
-    func recordSnapshot(of view: UIView, options: Options, functionName: String, line: UInt) throws
+    func compareSnapshot(of snapshotable: Snapshotable, options: Options, functionName: String, line: UInt) throws
+    func recordSnapshot(of snapshotable: Snapshotable, options: Options, functionName: String, line: UInt) throws
 }
 
 struct SnapshotCoordinator {
@@ -43,23 +43,12 @@ struct SnapshotCoordinator {
         self.fileManager = fileManager
         self.filenameFormatter = filenameFormatter
     }
-
-    private func image(forView view: UIView) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
-        view.layoutIfNeeded()
-        view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
-
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        return image
-    }
 }
 
 extension SnapshotCoordinator : SnapshotCoordinating {
 
-    func compareSnapshot(of view: UIView, options: Options = [], functionName: String, line: UInt) throws {
-        guard let snapshot = image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
+    func compareSnapshot(of snapshotable: Snapshotable, options: Options = [], functionName: String, line: UInt) throws {
+        guard let snapshot = snapshotable.snapshot() else { throw SnapshotError.unableToTakeSnapshot }
 
         let filename = filenameFormatter.format(functionName: functionName, options: options)
         let referenceImage = try fileManager.referenceImage(filename: filename, className: className)
@@ -69,8 +58,8 @@ extension SnapshotCoordinator : SnapshotCoordinating {
         }
     }
 
-    func recordSnapshot(of view: UIView, options: Options = [], functionName: String, line: UInt) throws {
-        guard let referenceImage = image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
+    func recordSnapshot(of snapshotable: Snapshotable, options: Options = [], functionName: String, line: UInt) throws {
+        guard let referenceImage = snapshotable.snapshot() else { throw SnapshotError.unableToTakeSnapshot }
         let filename = filenameFormatter.format(functionName: functionName, options: options)
         try fileManager.save(referenceImage: referenceImage, filename: filename, className: className)
     }

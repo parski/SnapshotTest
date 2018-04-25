@@ -36,14 +36,14 @@ open class SnapshotTestCase : XCTestCase {
         return SnapshotCoordinator(className: String(describing: type(of: self)))
     }()
 
-    public func AssertSnapshot(_ view: UIView, options: Options = [], functionName: String = #function, file: StaticString = #file, line: UInt = #line) {
+    public func AssertSnapshot(_ snapshotable: Snapshotable, options: Options = [], functionName: String = #function, file: StaticString = #file, line: UInt = #line) {
         do {
             if recordMode {
-                try coordinator.recordSnapshot(of: view, options: options, functionName: functionName, line: line)
+                try coordinator.recordSnapshot(of: snapshotable, options: options, functionName: functionName, line: line)
                 XCTFail("🔴 RECORD MODE: Reference image saved.", file: file, line: line)
             }
             else {
-                try coordinator.compareSnapshot(of: view, options: options, functionName: functionName, line: line)
+                try coordinator.compareSnapshot(of: snapshotable, options: options, functionName: functionName, line: line)
                 XCTAssertTrue(true, file: file, line: line)
             }
         } catch SnapshotError.imageMismatch(let filename) {

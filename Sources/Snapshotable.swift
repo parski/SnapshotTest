@@ -1,8 +1,8 @@
 //
-//  CocoaPodsTests.swift
+//  Snapshotable.swift
 //  SnapshotTest
 //
-//  Copyright © 2017 SnapshotTest. All rights reserved.
+//  Copyright © 2018 SnapshotTest. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -25,35 +25,35 @@
 //  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import SnapshotTest
+import UIKit
 
-class CocoaPodsTests: SnapshotTestCase {
-    
-    override func setUp() {
-        super.setUp()
-//        self.recordMode = true
+public protocol Snapshotable {
+    func snapshot() -> UIImage?
+}
+
+extension CALayer : Snapshotable {
+
+    public func snapshot() -> UIImage? {
+
+        defer {
+            UIGraphicsEndImageContext()
+        }
+
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+
+        render(in: context)
+
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return image
     }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testViewSnapshot() {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 200))
-        view.backgroundColor = .red
+}
 
-        AssertSnapshot(view)
-    }
+extension UIView : Snapshotable {
 
-    func testLayerSnapshot() {
-        let layer = CAShapeLayer()
-        layer.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
-        layer.lineWidth = 20
-        layer.fillColor = UIColor.blue.cgColor
-        layer.borderColor = UIColor.green.cgColor
-        layer.path = UIBezierPath(roundedRect: layer.bounds, cornerRadius: 20).cgPath
-
-        AssertSnapshot(layer)
+    public func snapshot() -> UIImage? {
+        return layer.snapshot()
     }
 }
