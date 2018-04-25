@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Exit the script if any statement returns a non-true return value
+set -e
+
 ## Build and test
 set -o pipefail && xcodebuild -project "SnapshotTest.xcodeproj" -scheme "SnapshotTest-iOS" -configuration "Debug" -sdk "iphonesimulator" -destination "name=iPhone 7" clean test | bundle exec xcpretty
 set -o pipefail && xcodebuild -project "SnapshotTest.xcodeproj" -scheme "SnapshotTest-tvOS" -configuration "Debug" -sdk "appletvsimulator" -destination "name=Apple TV" clean test | bundle exec xcpretty
