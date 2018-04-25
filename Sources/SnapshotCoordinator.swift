@@ -28,16 +28,18 @@
 import UIKit
 
 protocol SnapshotCoordinating {
-    func compareSnapshot(of view: UIView, options: Options, functionName: String, file: StaticString, line: UInt) throws
-    func recordSnapshot(of view: UIView, options: Options, functionName: String, file: StaticString, line: UInt) throws
+    func compareSnapshot(of view: UIView, options: Options, functionName: String, line: UInt) throws
+    func recordSnapshot(of view: UIView, options: Options, functionName: String, line: UInt) throws
 }
 
 struct SnapshotCoordinator {
 
+    let className: String
     let fileManager: SnapshotFileManaging
     let filenameFormatter: FilenameFormatting
 
-    init(fileManager: SnapshotFileManaging = SnapshotFileManager(), filenameFormatter: FilenameFormatting = FilenameFormatter()) {
+    init(className: String, fileManager: SnapshotFileManaging = SnapshotFileManager(), filenameFormatter: FilenameFormatting = FilenameFormatter()) {
+        self.className = className
         self.fileManager = fileManager
         self.filenameFormatter = filenameFormatter
     }
@@ -56,20 +58,20 @@ struct SnapshotCoordinator {
 
 extension SnapshotCoordinator : SnapshotCoordinating {
 
-    func compareSnapshot(of view: UIView, options: Options = [], functionName: String, file: StaticString, line: UInt) throws {
+    func compareSnapshot(of view: UIView, options: Options = [], functionName: String, line: UInt) throws {
         guard let snapshot = image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
 
-        let filename = filenameFormatter.format(sourceFile: file, functionName: functionName, options: options)
-        let referenceImage = try fileManager.referenceImage(filename: filename)
+        let filename = filenameFormatter.format(functionName: functionName, options: options)
+        let referenceImage = try fileManager.referenceImage(filename: filename, className: className)
 
         guard snapshot.normalizedData() == referenceImage.normalizedData() else {
             throw SnapshotError.imageMismatch(filename: filename)
         }
     }
 
-    func recordSnapshot(of view: UIView, options: Options = [], functionName: String, file: StaticString, line: UInt) throws {
+    func recordSnapshot(of view: UIView, options: Options = [], functionName: String, line: UInt) throws {
         guard let referenceImage = image(forView: view) else { throw SnapshotError.unableToTakeSnapshot }
-        let filename = filenameFormatter.format(sourceFile: file, functionName: functionName, options: options)
-        try fileManager.save(referenceImage: referenceImage, filename: filename)
+        let filename = filenameFormatter.format(functionName: functionName, options: options)
+        try fileManager.save(referenceImage: referenceImage, filename: filename, className: className)
     }
 }
