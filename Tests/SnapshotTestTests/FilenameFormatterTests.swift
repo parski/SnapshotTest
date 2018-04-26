@@ -48,41 +48,41 @@ class FilenameFormatterTests: XCTestCase {
 
     func testFormat_withoutOptions_shouldReturnCorrectlyFormattedFilname() {
         // When
-        let filename = sut.format(sourceFile: "Source/File.swift", functionName: "functionName()", options: [])
+        let filename = sut.format(functionName: "functionName()", options: [])
 
         // Then
-        XCTAssertEqual(filename, "File_functionName")
+        XCTAssertEqual(filename, "functionName")
     }
 
     func testFormat_withOptionDevice_shouldReturnCorrectlyFormattedFilname() {
         // When
-        let filename = sut.format(sourceFile: "Source/File.swift", functionName: "functionName()", options: [.device])
+        let filename = sut.format(functionName: "functionName()", options: [.device])
 
         // Then
-        XCTAssertEqual(filename, "File_functionName_AppleTV")
+        XCTAssertEqual(filename, "functionName_AppleTV")
     }
 
     func testFormat_withOptionOSVersion_shouldReturnCorrectlyFormattedFilname() {
         // When
-        let filename = sut.format(sourceFile: "Source/File.swift", functionName: "functionName()", options: [.osVersion])
+        let filename = sut.format(functionName: "functionName()", options: [.osVersion])
 
         // Then
-        XCTAssertEqual(filename, "File_functionName_11_2_3")
+        XCTAssertEqual(filename, "functionName_11_2_3")
     }
 
     func testFormat_withOptionDeviceAndOSVersion_shouldReturnCorrectlyFormattedFilname() {
         // When
-        let filename = sut.format(sourceFile: "Source/File.swift", functionName: "functionName()", options: [.device, .osVersion])
+        let filename = sut.format(functionName: "functionName()", options: [.device, .osVersion])
 
         // Then
-        XCTAssertEqual(filename, "File_functionName_AppleTV_11_2_3")
+        XCTAssertEqual(filename, "functionName_AppleTV_11_2_3")
     }
 
     func testFormat_withOptionDeviceAndOSVersionInAnotherOrdering_shouldReturnCorrectlyFormattedFilname() {
         // When
-        let filename = sut.format(sourceFile: "Source/File.swift", functionName: "functionName()", options: [.osVersion, .device])
+        let filename = sut.format(functionName: "functionName()", options: [.osVersion, .device])
 
         // Then
-        XCTAssertEqual(filename, "File_functionName_AppleTV_11_2_3")
+        XCTAssertEqual(filename, "functionName_AppleTV_11_2_3")
     }
 }

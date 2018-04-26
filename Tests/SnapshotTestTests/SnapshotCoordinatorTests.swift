@@ -38,7 +38,7 @@ class SnapshotCoordinatorTests: XCTestCase {
         super.setUp()
         fileManagerMock = SnapshotFileManagerMock()
         filenameFormatter = FilenameFormattingMock()
-        sut = SnapshotCoordinator(fileManager: fileManagerMock, filenameFormatter: filenameFormatter)
+        sut = SnapshotCoordinator(className: "CustomButtonTests", fileManager: fileManagerMock, filenameFormatter: filenameFormatter)
     }
     
     override func tearDown() {
@@ -57,7 +57,7 @@ class SnapshotCoordinatorTests: XCTestCase {
         fileManagerMock.referenceImageReturnValue = UIImage(testFilename: "redSquare", ofType: "png")
 
         // When
-        XCTAssertNoThrow(try sut.compareSnapshot(of: view, options: [], functionName: "redSquare", file: "", line: 0))
+        XCTAssertNoThrow(try sut.compareSnapshot(of: view, options: [], functionName: "redSquare", line: 0))
     }
     
     func testCompareSnapshot_withViewNotEqualToReferenceImage_shouldThrowError() {
@@ -66,29 +66,42 @@ class SnapshotCoordinatorTests: XCTestCase {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         view.backgroundColor = .blue
         fileManagerMock.referenceImageReturnValue = UIImage(testFilename: "redSquare", ofType: "png")
-        filenameFormatter.formatReturnValue = "File_redSquare"
 
         // When
-        XCTAssertThrowsError(try sut.compareSnapshot(of: view, options: [], functionName: "redSquare", file: "File.swift", line: 0)) { error in
-            XCTAssertEqual(error as? SnapshotError, SnapshotError.imageMismatch(filename: "File_redSquare"))
+        XCTAssertThrowsError(try sut.compareSnapshot(of: view, options: [], functionName: "redSquare", line: 0)) { error in
+            XCTAssertEqual(error as? SnapshotError, SnapshotError.imageMismatch(filename: "redSquare"))
         }
+    }
+
+    func testCompareSnapshot_shouldInvokeReferenceImageWithCorrectFilenameAndClassNameOnFileManager() {
+
+        // Given
+        let view = redSquareView()
+
+        // When
+        try? sut.compareSnapshot(of: view, options: [], functionName: "redSquare", line: 0)
+
+        // Then
+        XCTAssertEqual(fileManagerMock.referenceImageInvokeCount, 1)
+        XCTAssertEqual(fileManagerMock.referenceImageFilenameArgument, "redSquare")
+        XCTAssertEqual(fileManagerMock.referenceImageClassNameArgument, "CustomButtonTests")
     }
 
     // MARK: Record Snapshot
 
-    func testRecordSnapshot_withRedView_shouldSaveReferenceImageOfViewWithCorrectFunctionName() throws {
+    func testRecordSnapshot_withRedView_shouldSaveReferenceImageOfViewWithCorrectFilenameAndClassName() throws {
 
         // Given
         let view = redSquareView()
-        filenameFormatter.formatReturnValue = "File_redSquare"
 
         // When
-        try sut.recordSnapshot(of: view, options: [], functionName: "redSquare", file: "", line: 0)
+        try sut.recordSnapshot(of: view, options: [], functionName: "redSquare", line: 0)
 
         // Then
         XCTAssertEqual(fileManagerMock.saveInvokeCount, 1)
         XCTAssertNotNil(fileManagerMock.saveReferenceImageArgument)
-        XCTAssertEqual(fileManagerMock.saveFilenameArgument, "File_redSquare")
+        XCTAssertEqual(fileManagerMock.saveFilenameArgument, "redSquare")
+        XCTAssertEqual(fileManagerMock.saveClassNameArgument, "CustomButtonTests")
     }
 
     func testRecordSnapshot_withFileManagerError_shouldThrowSameError() {
@@ -97,7 +110,7 @@ class SnapshotCoordinatorTests: XCTestCase {
         fileManagerMock.saveErrorToThrow = SnapshotFileManagerError.unableToSerializeReferenceImage
 
         // When
-        XCTAssertThrowsError(try sut.recordSnapshot(of: view, options: [], functionName: "", file: "", line: 0)) { error in
+        XCTAssertThrowsError(try sut.recordSnapshot(of: view, options: [], functionName: "", line: 0)) { error in
             // Then
             XCTAssertEqual(error as? SnapshotFileManagerError, SnapshotFileManagerError.unableToSerializeReferenceImage)
         }
@@ -113,9 +126,7 @@ class SnapshotCoordinatorTests: XCTestCase {
 
 class FilenameFormattingMock : FilenameFormatting {
 
-    var formatReturnValue: String = "filename"
-
-    func format(sourceFile: StaticString, functionName: String, options: Options) -> String {
-        return formatReturnValue
+    func format(functionName: String, options: Options) -> String {
+        return functionName
     }
 }

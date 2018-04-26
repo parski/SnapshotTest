@@ -84,49 +84,38 @@ class SnapshotFileManagerTests: XCTestCase {
     func testSave_withReferenceImageDirectoryAsEnvironmentalVariable_shouldCheckIfDirectoryExists() throws {
         // Given
         let referenceImageDirectory = "/Environmental/Variable/ReferenceImages"
-        processInfo.environment["POP_REFERENCE_IMAGE_DIR"] = referenceImageDirectory
+        processInfo.environment["REFERENCE_IMAGE_DIR"] = referenceImageDirectory
 
         // When
-        try sut.save(referenceImage: testImage, filename: "")
+        try sut.save(referenceImage: testImage, filename: "filename-doesnt-matter-in-this-test", className: "CustomViewTests")
         
         // Then
         XCTAssertEqual(fileManagerMock.fileExistsInvokeCount, 1)
-        XCTAssertEqual(fileManagerMock.fileExistsPathArgument, "file:///Environmental/Variable/ReferenceImages")
-    }
-
-    func testSave_withNoSpecifiedReferenceImageDirectory_shouldCheckIfDefaultDirectoryExists() throws {
-        //Given
-        processInfo.environment["POP_REFERENCE_IMAGE_DIR"] = "/Environmental/Variable/ReferenceImages"
-
-        // When
-        try sut.save(referenceImage: testImage, filename: "filename")
-
-        // Then
-        XCTAssertEqual(fileManagerMock.fileExistsPathArgument, "file:///Environmental/Variable/ReferenceImages")
+        XCTAssertEqual(fileManagerMock.fileExistsPathArgument, "file:///Environmental/Variable/ReferenceImages/CustomViewTests")
     }
 
     func testSave_withReferenceImageDirectoryDoesNotExist_shouldCreateDirectory() throws {
         // Given
         let referenceImageDirectory = "/NonExistingDirectory"
-        processInfo.environment["POP_REFERENCE_IMAGE_DIR"] = referenceImageDirectory
+        processInfo.environment["REFERENCE_IMAGE_DIR"] = referenceImageDirectory
         fileManagerMock.fileExistsReturnValue = false
         
         // When
-        try sut.save(referenceImage: testImage, filename: "")
+        try sut.save(referenceImage: testImage, filename: "filename-doesnt-matter-in-this-test", className: "CustomViewTests")
         
         // Then
         XCTAssertEqual(fileManagerMock.createDirectoryInvokeCount, 1)
-        XCTAssertEqual(fileManagerMock.createDirectoryUrlArgument, URL(fileURLWithPath: referenceImageDirectory))
+        XCTAssertEqual(fileManagerMock.createDirectoryUrlArgument, URL(fileURLWithPath: "/NonExistingDirectory/CustomViewTests"))
     }
     
     func testSave_withReferenceImageDirectoryDoesExist_shouldNotCreateDirectory() throws {
         // Given
         let referenceImageDirectory = "/ExistingDirectory"
-        processInfo.environment["POP_REFERENCE_IMAGE_DIR"] = referenceImageDirectory
+        processInfo.environment["REFERENCE_IMAGE_DIR"] = referenceImageDirectory
         fileManagerMock.fileExistsReturnValue = true
         
         // When
-        try sut.save(referenceImage: testImage, filename: "")
+        try sut.save(referenceImage: testImage, filename: "filename-doesnt-matter-in-this-test", className: "CustomViewTests")
         
         // Then
         XCTAssertEqual(fileManagerMock.createDirectoryInvokeCount, 0)
@@ -134,31 +123,31 @@ class SnapshotFileManagerTests: XCTestCase {
     
     func testSave_withReferenceImageDirectoryDoesExist_shouldWriteDataToCorrectPath() throws {
         // Given
-        processInfo.environment["POP_REFERENCE_IMAGE_DIR"] = "/ReferenceImageDirectory"
+        processInfo.environment["REFERENCE_IMAGE_DIR"] = "/ReferenceImageDirectory"
         fileManagerMock.fileExistsReturnValue = true
         
         // When
-        try sut.save(referenceImage: testImage, filename: "testFunctionName")
+        try sut.save(referenceImage: testImage, filename: "testFunctionName", className: "CustomViewTests")
         
         // Then
         XCTAssertEqual(dataHandlerMock.writeInvokeCount, 1)
-        XCTAssertEqual(dataHandlerMock.writePathArgument, URL(fileURLWithPath: "/ReferenceImageDirectory/testFunctionName.png"))
+        XCTAssertEqual(dataHandlerMock.writePathArgument, URL(fileURLWithPath: "/ReferenceImageDirectory/CustomViewTests/testFunctionName.png"))
     }
 
     // MARK: Reference Image
     
     func testReferenceImage_forFunctionName_shouldWriteDataToCorrectPath() throws {
         // Given
-        processInfo.environment["POP_REFERENCE_IMAGE_DIR"] = "/ReferenceImageDirectory"
+        processInfo.environment["REFERENCE_IMAGE_DIR"] = "/ReferenceImageDirectory"
         fileManagerMock.fileExistsReturnValue = true
         let testImage = UIImage(testFilename: "redSquare", ofType: "png")!
         
         // When
-        try sut.save(referenceImage: testImage, filename: "testFunctionName")
+        try sut.save(referenceImage: testImage, filename: "testFunctionName", className: "CustomViewTests")
         
         // Then
         XCTAssertEqual(dataHandlerMock.writeInvokeCount, 1)
-        XCTAssertEqual(dataHandlerMock.writePathArgument, URL(fileURLWithPath: "/ReferenceImageDirectory/testFunctionName.png"))
+        XCTAssertEqual(dataHandlerMock.writePathArgument, URL(fileURLWithPath: "/ReferenceImageDirectory/CustomViewTests/testFunctionName.png"))
     }
     
 }

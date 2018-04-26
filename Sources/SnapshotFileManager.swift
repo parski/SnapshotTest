@@ -44,13 +44,14 @@ class DataHandler : DataHandling {
     }
     
     func image(from path: URL) -> UIImage? {
-        return UIImage(contentsOfFile: path.path)
+        guard let data = try? Data.init(contentsOf: path) else { return nil }
+        return UIImage(data: data, scale: UIScreen.main.scale)
     }
 }
 
 protocol SnapshotFileManaging {
-    func save(referenceImage: UIImage, filename: String) throws
-    func referenceImage(filename: String) throws -> UIImage
+    func save(referenceImage: UIImage, filename: String, className: String) throws
+    func referenceImage(filename: String, className: String) throws -> UIImage
 }
 
 enum SnapshotFileManagerError : Error {
@@ -91,32 +92,35 @@ class SnapshotFileManager {
     }
     
     lazy var referenceImageDirectory: URL? = {
-        guard let environmentReferenceImageDirectory = processInfo.environment["POP_REFERENCE_IMAGE_DIR"] else { return nil }
+        guard let environmentReferenceImageDirectory = processInfo.environment["REFERENCE_IMAGE_DIR"] else { return nil }
         return URL(fileURLWithPath: environmentReferenceImageDirectory)
     }()
     
-    private func path(for filename: String) throws -> URL {
+    private func buildAbsolutePath(for filename: String, className: String) throws -> URL {
         guard let referenceImageDirectory = referenceImageDirectory else { throw SnapshotFileManagerError.unableToDetermineReferenceImageDirectory }
 
-        return referenceImageDirectory.appendingPathComponent(filename).appendingPathExtension("png")
+        return referenceImageDirectory
+            .appendingPathComponent(className)
+            .appendingPathComponent(filename)
+            .appendingPathExtension("png")
     }
 }
 
 extension SnapshotFileManager : SnapshotFileManaging {
 
-    func save(referenceImage: UIImage, filename: String) throws {
-        guard let referenceImageDirectory = referenceImageDirectory else { throw SnapshotFileManagerError.unableToDetermineReferenceImageDirectory }
+    func save(referenceImage: UIImage, filename: String, className: String) throws {
+        guard let referenceImageDirectory = referenceImageDirectory?.appendingPathComponent(className) else { throw SnapshotFileManagerError.unableToDetermineReferenceImageDirectory }
         if fileManager.fileExists(atPath: referenceImageDirectory.absoluteString) == false {
             try fileManager.createDirectory(at: referenceImageDirectory, withIntermediateDirectories: true, attributes: nil)
         }
 
-        let path = try self.path(for: filename)
+        let path = try buildAbsolutePath(for: filename, className: className)
         guard let imagePngData = UIImagePNGRepresentation(referenceImage) else { throw SnapshotFileManagerError.unableToSerializeReferenceImage }
         try dataHandler.write(imagePngData, to: path, options: .atomicWrite)
     }
 
-    func referenceImage(filename: String) throws -> UIImage {
-        let path = try self.path(for: filename)
+    func referenceImage(filename: String, className: String) throws -> UIImage {
+        let path = try buildAbsolutePath(for: filename, className: className)
         guard let referenceImage = dataHandler.image(from: path) else { throw SnapshotFileManagerError.unableToDeserializeReferenceImage }
 
         return referenceImage

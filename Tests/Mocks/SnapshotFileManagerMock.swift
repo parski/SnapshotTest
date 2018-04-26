@@ -31,25 +31,29 @@ import UIKit
 class SnapshotFileManagerMock : SnapshotFileManaging {
 
     var saveInvokeCount: Int = 0
-    var saveReferenceImageArgument: UIImage? = nil
-    var saveFilenameArgument: String? = nil
-    var saveErrorToThrow: Error? = nil
+    var saveReferenceImageArgument: UIImage?
+    var saveFilenameArgument: String?
+    var saveClassNameArgument: String?
+    var saveErrorToThrow: Error?
     
     var referenceImageInvokeCount: Int = 0
-    var referenceImageFilenameArgument: String? = nil
-    var referenceImageErrorToThrow: Error? = nil
-    var referenceImageReturnValue: UIImage? = nil
+    var referenceImageFilenameArgument: String?
+    var referenceImageClassNameArgument: String?
+    var referenceImageErrorToThrow: Error?
+    var referenceImageReturnValue: UIImage?
     
-    func save(referenceImage: UIImage, filename: String) throws {
+    func save(referenceImage: UIImage, filename: String, className: String) throws {
         saveInvokeCount += 1
         saveReferenceImageArgument = referenceImage
         saveFilenameArgument = filename
+        saveClassNameArgument = className
         if let error = saveErrorToThrow { throw error }
     }
     
-    func referenceImage(filename: String) throws -> UIImage {
+    func referenceImage(filename: String, className: String) throws -> UIImage {
         referenceImageInvokeCount += 1
         referenceImageFilenameArgument = filename
+        referenceImageClassNameArgument = className
         if let error = referenceImageErrorToThrow { throw error }
         return referenceImageReturnValue ?? UIImage()
     }
