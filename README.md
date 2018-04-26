@@ -46,6 +46,7 @@ class ViewTests: SnapshotTestCase {
     
 }
 ```
+Currently **UIView**, **UIViewController** and **CALayer** are supported.
 
 ### Record mode
 To set the test case to record mode simply change the `recordMode` property to true.
