@@ -92,7 +92,7 @@ class SnapshotFileManager {
     }
     
     lazy var referenceImageDirectory: URL? = {
-        guard let environmentReferenceImageDirectory = processInfo.environment["POP_REFERENCE_IMAGE_DIR"] else { return nil }
+        guard let environmentReferenceImageDirectory = processInfo.environment["REFERENCE_IMAGE_DIR"] else { return nil }
         return URL(fileURLWithPath: environmentReferenceImageDirectory)
     }()
     

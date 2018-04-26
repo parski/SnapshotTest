@@ -84,7 +84,7 @@ class SnapshotFileManagerTests: XCTestCase {
     func testSave_withReferenceImageDirectoryAsEnvironmentalVariable_shouldCheckIfDirectoryExists() throws {
         // Given
         let referenceImageDirectory = "/Environmental/Variable/ReferenceImages"
-        processInfo.environment["POP_REFERENCE_IMAGE_DIR"] = referenceImageDirectory
+        processInfo.environment["REFERENCE_IMAGE_DIR"] = referenceImageDirectory
 
         // When
         try sut.save(referenceImage: testImage, filename: "filename-doesnt-matter-in-this-test", className: "CustomViewTests")
@@ -97,7 +97,7 @@ class SnapshotFileManagerTests: XCTestCase {
     func testSave_withReferenceImageDirectoryDoesNotExist_shouldCreateDirectory() throws {
         // Given
         let referenceImageDirectory = "/NonExistingDirectory"
-        processInfo.environment["POP_REFERENCE_IMAGE_DIR"] = referenceImageDirectory
+        processInfo.environment["REFERENCE_IMAGE_DIR"] = referenceImageDirectory
         fileManagerMock.fileExistsReturnValue = false
         
         // When
@@ -111,7 +111,7 @@ class SnapshotFileManagerTests: XCTestCase {
     func testSave_withReferenceImageDirectoryDoesExist_shouldNotCreateDirectory() throws {
         // Given
         let referenceImageDirectory = "/ExistingDirectory"
-        processInfo.environment["POP_REFERENCE_IMAGE_DIR"] = referenceImageDirectory
+        processInfo.environment["REFERENCE_IMAGE_DIR"] = referenceImageDirectory
         fileManagerMock.fileExistsReturnValue = true
         
         // When
@@ -123,7 +123,7 @@ class SnapshotFileManagerTests: XCTestCase {
     
     func testSave_withReferenceImageDirectoryDoesExist_shouldWriteDataToCorrectPath() throws {
         // Given
-        processInfo.environment["POP_REFERENCE_IMAGE_DIR"] = "/ReferenceImageDirectory"
+        processInfo.environment["REFERENCE_IMAGE_DIR"] = "/ReferenceImageDirectory"
         fileManagerMock.fileExistsReturnValue = true
         
         // When
@@ -138,7 +138,7 @@ class SnapshotFileManagerTests: XCTestCase {
     
     func testReferenceImage_forFunctionName_shouldWriteDataToCorrectPath() throws {
         // Given
-        processInfo.environment["POP_REFERENCE_IMAGE_DIR"] = "/ReferenceImageDirectory"
+        processInfo.environment["REFERENCE_IMAGE_DIR"] = "/ReferenceImageDirectory"
         fileManagerMock.fileExistsReturnValue = true
         let testImage = UIImage(testFilename: "redSquare", ofType: "png")!
         
