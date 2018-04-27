@@ -51,6 +51,7 @@
 		3FCA69A92059957D00CFE455 /* SnapshotCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCA69A72059957D00CFE455 /* SnapshotCoordinator.swift */; };
 		52D6D9871BEFF229002C0205 /* SnapshotTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D6D97C1BEFF229002C0205 /* SnapshotTest.framework */; };
 		DD7502921C690C7A006590AF /* SnapshotTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D6D9F01BEFFFBE002C0205 /* SnapshotTest.framework */; };
+		F2E2A9C620934132006DE0A2 /* Snapshotable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F789E332090F86100367283 /* Snapshotable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -610,6 +611,7 @@
 				3F69E4C71FB38ACC0081155A /* SnapshotTestCase.swift in Sources */,
 				3F69E4CD1FB38C540081155A /* SnapshotFileManager.swift in Sources */,
 				3F58EB7A2059BBD10044E6E9 /* Option.swift in Sources */,
+				F2E2A9C620934132006DE0A2 /* Snapshotable.swift in Sources */,
 				3F58EB7020599CC90044E6E9 /* SnapshotError.swift in Sources */,
 				3F58EB7B2059BBD40044E6E9 /* Options.swift in Sources */,
 				3F58EB7C2059BBDA0044E6E9 /* FilenameFormatter.swift in Sources */,
