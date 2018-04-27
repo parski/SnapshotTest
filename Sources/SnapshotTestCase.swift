@@ -30,12 +30,25 @@ import XCTest
 
 open class SnapshotTestCase : XCTestCase {
 
+    /**
+     Flag for activating record mode.
+     - Note: Tests will always fail in record mode.
+     */
     open var recordMode: Bool = false
 
     lazy var coordinator: SnapshotCoordinating = {
         return SnapshotCoordinator(className: String(describing: type(of: self)))
     }()
 
+    /**
+     Compares a snapshotable to a previously saved reference image.
+     - Parameter snapshotable: View construct conforming to the `Snapshotable` protocol.
+     - Parameter options: A set of parameters for more specific comparisons. See `Option` for available options.
+     - Parameter functionName: Inferred test function name.
+     - Parameter file: Inferred name of test file.
+     - Parameter line: Inferred line of test function declaration.
+     - Important: If record mode (see `recordMode`) is active this function records and saves a snapshot instead.
+     */
     public func AssertSnapshot(_ snapshotable: Snapshotable, options: Options = [], functionName: String = #function, file: StaticString = #file, line: UInt = #line) {
         do {
             if recordMode {
@@ -52,6 +65,17 @@ open class SnapshotTestCase : XCTestCase {
         }
 
     }
+    
+    /**
+    Records a snapshot of a snapshotable and saves a reference image to disk.
+    - Parameter snapshotable: View construct conforming to the `Snapshotable` protocol.
+    - Parameter options: A set of parameters for more specific comparisons. See `Option` for available options.
+    - Parameter functionName: Inferred test function name.
+    - Parameter file: Inferred name of test file.
+    - Parameter line: Inferred line of test function declaration.
+    - Important: Reference images will be saved to the directory specified using the `REFERENCE_IMAGE_DIR` environmental variable.
+    - Note: Tests will always fail when recording.
+    */
     public func RecordSnapshot(_ snapshotable: Snapshotable, options: Options = [], functionName: String = #function, file: StaticString = #file, line: UInt = #line) {
         do {
             try recordSnapshot(of: snapshotable, options: options, functionName: functionName, file: file, line: line)
