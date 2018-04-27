@@ -1,8 +1,8 @@
 //
-//  SnapshotTestCase.swift
+//  Snapshotable.swift
 //  SnapshotTest
 //
-//  Copyright © 2017 SnapshotTest. All rights reserved.
+//  Copyright © 2018 SnapshotTest. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -26,31 +26,44 @@
 //
 
 import UIKit
-import XCTest
 
-open class SnapshotTestCase : XCTestCase {
+public protocol Snapshotable {
+    func snapshot() -> UIImage?
+}
 
-    open var recordMode: Bool = false
+extension CALayer : Snapshotable {
 
-    lazy var coordinator: SnapshotCoordinating = {
-        return SnapshotCoordinator(className: String(describing: type(of: self)))
-    }()
+    public func snapshot() -> UIImage? {
 
-    public func AssertSnapshot(_ snapshotable: Snapshotable, options: Options = [], functionName: String = #function, file: StaticString = #file, line: UInt = #line) {
-        do {
-            if recordMode {
-                try coordinator.recordSnapshot(of: snapshotable, options: options, functionName: functionName, line: line)
-                XCTFail("🔴 RECORD MODE: Reference image saved.", file: file, line: line)
-            }
-            else {
-                try coordinator.compareSnapshot(of: snapshotable, options: options, functionName: functionName, line: line)
-                XCTAssertTrue(true, file: file, line: line)
-            }
-        } catch SnapshotError.imageMismatch(let filename) {
-            XCTAssert(false, "\(filename) is different from the reference image.", file: file, line: line)
-        } catch {
-            XCTAssert(false, "\(functionName) - \(error)", file: file, line: line)
+        defer {
+            UIGraphicsEndImageContext()
         }
 
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+
+        render(in: context)
+
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return image
+    }
+}
+
+extension UIView : Snapshotable {
+
+    public func snapshot() -> UIImage? {
+        layoutIfNeeded()
+        return layer.snapshot()
+    }
+}
+
+extension UIViewController : Snapshotable {
+
+    public func snapshot() -> UIImage? {
+        beginAppearanceTransition(true, animated: false)
+        endAppearanceTransition()
+        return view.snapshot()
     }
 }

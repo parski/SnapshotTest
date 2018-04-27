@@ -40,9 +40,49 @@ class CocoaPodsTests: SnapshotTestCase {
     }
     
     func testViewSnapshot() {
+
+        let label = UILabel()
+        label.text = "Hello World"
+        label.translatesAutoresizingMaskIntoConstraints = false
+
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 200))
         view.backgroundColor = .red
+        view.addSubview(label)
+        view.addConstraints([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
 
         AssertSnapshot(view)
+    }
+
+    func testLayerSnapshot() {
+        let layer = CAShapeLayer()
+        layer.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+        layer.lineWidth = 20
+        layer.fillColor = UIColor.blue.cgColor
+        layer.borderColor = UIColor.green.cgColor
+        layer.path = UIBezierPath(roundedRect: layer.bounds, cornerRadius: 20).cgPath
+
+        AssertSnapshot(layer)
+    }
+
+    func testViewControllerSnapshot() {
+
+        let label = UILabel()
+        label.text = "Hello World"
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = .lightGray
+        viewController.view.addSubview(label)
+        viewController.view.addConstraints([
+            label.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor)
+        ])
+
+        let navigationController = UINavigationController(rootViewController: viewController)
+
+        AssertSnapshot(navigationController)
     }
 }
