@@ -47,9 +47,9 @@ open class SnapshotTestCase : XCTestCase {
                 XCTAssertTrue(true, file: file, line: line)
             }
         } catch SnapshotError.imageMismatch(let filename) {
-            XCTAssert(false, "\(filename) is different from the reference image.", file: file, line: line)
+            XCTFail("\(filename) is different from the reference image.", file: file, line: line)
         } catch {
-            XCTAssert(false, "\(functionName) - \(error)", file: file, line: line)
+            XCTFail("\(functionName) - \(error)", file: file, line: line)
         }
 
     }
