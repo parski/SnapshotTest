@@ -28,7 +28,7 @@ It should look something like this:
 ![Test scheme arguments.](reference_image_directory.png)
 
 ### Usage
-If you are familiar with **XCTest** using **SnapshotTest** will be a breeze. Instead of subclassing **XCTestCase** you just need to subclass **SnapshotTestCase** and assert the view to test it.
+If you are familiar with **XCTest** using **SnapshotTest** will be a breeze. Instead of subclassing **XCTestCase** you just need to subclass **SnapshotTestCase** and assert the view using `AssertSnapshot()` to test it.
 
 ```swift
 class ViewTests: SnapshotTestCase {
@@ -56,13 +56,32 @@ class ViewTests: SnapshotTestCase {
     
     override func setUp() {
         super.setUp()
-	recordMode = true
+        recordMode = true
     }
     
 }
 ```
 
 The assertion will then record and save a reference image.
+
+To explicitly record a single snapshot you can instead use the `RecordSnapshot()` function:
+
+```swift
+class ViewTests: SnapshotTestCase {
+    
+    func testView_withAlteration() {
+        // Given
+        let view = View(frame: CGRect(x: 0, y: 0, width: 375, height: 100))
+        
+        // When
+        view.alter()
+        
+        // Then
+        RecordSnapshot(view)
+    }
+    
+}
+```
 
 ### Options
 SnapshotTest provides different ways to compare snapshots using several options.
