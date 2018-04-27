@@ -39,8 +39,7 @@ open class SnapshotTestCase : XCTestCase {
     public func AssertSnapshot(_ snapshotable: Snapshotable, options: Options = [], functionName: String = #function, file: StaticString = #file, line: UInt = #line) {
         do {
             if recordMode {
-                try coordinator.recordSnapshot(of: snapshotable, options: options, functionName: functionName, line: line)
-                XCTFail("🔴 RECORD MODE: Reference image saved.", file: file, line: line)
+                try recordSnapshot(of: snapshotable, options: options, functionName: functionName, file: file, line: line)
             }
             else {
                 try coordinator.compareSnapshot(of: snapshotable, options: options, functionName: functionName, line: line)
@@ -53,4 +52,18 @@ open class SnapshotTestCase : XCTestCase {
         }
 
     }
+    public func RecordSnapshot(_ snapshotable: Snapshotable, options: Options = [], functionName: String = #function, file: StaticString = #file, line: UInt = #line) {
+        do {
+            try recordSnapshot(of: snapshotable, options: options, functionName: functionName, file: file, line: line)
+        } catch {
+            XCTFail("\(functionName) - \(error)", file: file, line: line)
+        }
+        
+    }
+    
+    private func recordSnapshot(of snapshotable: Snapshotable, options: Options, functionName: String, file: StaticString, line: UInt) throws {
+        try coordinator.recordSnapshot(of: snapshotable, options: options, functionName: functionName, line: line)
+        XCTFail("🔴 RECORD MODE: Reference image saved.", file: file, line: line)
+    }
+
 }
