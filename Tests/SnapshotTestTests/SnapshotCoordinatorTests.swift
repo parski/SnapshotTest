@@ -63,7 +63,7 @@ class SnapshotCoordinatorTests: XCTestCase {
     func testCompareSnapshot_withViewNotEqualToReferenceImage_shouldThrowError() {
 
         // Given
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         view.backgroundColor = .blue
         fileManagerMock.referenceImageReturnValue = UIImage(testFilename: "redSquare", ofType: "png")
 
@@ -117,7 +117,8 @@ class SnapshotCoordinatorTests: XCTestCase {
     }
 
     private func redSquareView() -> UIView {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let size = 100 / UIScreen.main.scale
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: size, height: size))
         view.backgroundColor = .red
         return view
     }
