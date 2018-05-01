@@ -64,6 +64,12 @@ class ViewTests: SnapshotTestCase {
 
 The assertion will then record and save a reference image.
 
+To set record mode globally and record all snapshots for every assertion, set the class variable `recordMode` instead.
+
+```swift
+SnapshotTestCase.recordMode = true
+```
+
 To explicitly record a single snapshot you can instead use the `RecordSnapshot()` function:
 
 ```swift
@@ -101,7 +107,7 @@ AssertSnapshot(view, options: [.device, .osVersion])
 The following platforms and minimum versions are supported:
 
 * iOS 8.0
-* tvOS 8.0
+* tvOS 9.0
 
 ### Distribution
 Use SnapshotTest by building it and integrating it into your project manually or by using a depencency manager. Currently only CocoaPods is supported with more to come.

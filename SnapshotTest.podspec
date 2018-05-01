@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.license = { :type => "2-clause BSD", :file => "LICENSE" }
   s.author = { "Pär Strindevall" => "par@strindevall.com", "André Stenvall" => "andre@stenvall.me" }
   s.ios.deployment_target = "8.0"
-  s.tvos.deployment_target = "8.0"
+  s.tvos.deployment_target = "9.0"
   s.source = { :git => "https://github.com/parski/SnapshotTest.git", :tag => s.version.to_s }
   s.source_files = "Sources/**/*"
   s.frameworks = "Foundation", "XCTest"
