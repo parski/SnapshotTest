@@ -42,11 +42,11 @@
 		3F6B2A0D1FC190910006A9ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6B2A0C1FC190910006A9ED /* AppDelegate.swift */; };
 		3F6B2A141FC190910006A9ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F6B2A131FC190910006A9ED /* Assets.xcassets */; };
 		3F6B2A171FC190910006A9ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F6B2A151FC190910006A9ED /* LaunchScreen.storyboard */; };
-		3F6B2A221FC1A3AF0006A9ED /* UIImage+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6B2A211FC1A3AF0006A9ED /* UIImage+Snapshot.swift */; };
-		3F6B2A231FC1A3AF0006A9ED /* UIImage+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6B2A211FC1A3AF0006A9ED /* UIImage+Snapshot.swift */; };
 		3F789E342090F86100367283 /* Snapshotable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F789E332090F86100367283 /* Snapshotable.swift */; };
 		3F78EB681FC5FDE300B4A940 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F78EB671FC5FDE300B4A940 /* AppDelegate.swift */; };
 		3F78EB6F1FC5FDE300B4A940 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F78EB6E1FC5FDE300B4A940 /* Assets.xcassets */; };
+		3F9A2E49209707E200979F4F /* UIImage+Compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9A2E48209707E200979F4F /* UIImage+Compare.swift */; };
+		3F9A2E4A209707E200979F4F /* UIImage+Compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9A2E48209707E200979F4F /* UIImage+Compare.swift */; };
 		3FCA69A82059957D00CFE455 /* SnapshotCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCA69A72059957D00CFE455 /* SnapshotCoordinator.swift */; };
 		3FCA69A92059957D00CFE455 /* SnapshotCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCA69A72059957D00CFE455 /* SnapshotCoordinator.swift */; };
 		52D6D9871BEFF229002C0205 /* SnapshotTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D6D97C1BEFF229002C0205 /* SnapshotTest.framework */; };
@@ -107,12 +107,12 @@
 		3F6B2A131FC190910006A9ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F6B2A161FC190910006A9ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F6B2A181FC190910006A9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3F6B2A211FC1A3AF0006A9ED /* UIImage+Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Snapshot.swift"; sourceTree = "<group>"; };
 		3F789E332090F86100367283 /* Snapshotable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshotable.swift; sourceTree = "<group>"; };
 		3F78EB651FC5FDE300B4A940 /* ExampleApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ExampleApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F78EB671FC5FDE300B4A940 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F78EB6E1FC5FDE300B4A940 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F78EB701FC5FDE300B4A940 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F9A2E48209707E200979F4F /* UIImage+Compare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compare.swift"; sourceTree = "<group>"; };
 		3FCA69A72059957D00CFE455 /* SnapshotCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotCoordinator.swift; sourceTree = "<group>"; };
 		52D6D97C1BEFF229002C0205 /* SnapshotTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapshotTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6D9861BEFF229002C0205 /* SnapshotTest-iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SnapshotTest-iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -288,12 +288,12 @@
 				3F5D0A72203CB326000F907F /* FilenameFormatter.swift */,
 				3F5D0A6E203C9F7D000F907F /* Option.swift */,
 				3F5D0A70203CA807000F907F /* Options.swift */,
+				3F789E332090F86100367283 /* Snapshotable.swift */,
 				3FCA69A72059957D00CFE455 /* SnapshotCoordinator.swift */,
 				3F58EB6E20599CC90044E6E9 /* SnapshotError.swift */,
 				3F69E4C51FB38ACC0081155A /* SnapshotFileManager.swift */,
 				3F69E4C41FB38ACC0081155A /* SnapshotTestCase.swift */,
-				3F6B2A211FC1A3AF0006A9ED /* UIImage+Snapshot.swift */,
-				3F789E332090F86100367283 /* Snapshotable.swift */,
+				3F9A2E48209707E200979F4F /* UIImage+Compare.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -576,7 +576,7 @@
 			files = (
 				3F58EB6F20599CC90044E6E9 /* SnapshotError.swift in Sources */,
 				3F5D0A71203CA807000F907F /* Options.swift in Sources */,
-				3F6B2A221FC1A3AF0006A9ED /* UIImage+Snapshot.swift in Sources */,
+				3F9A2E49209707E200979F4F /* UIImage+Compare.swift in Sources */,
 				3F69E4C61FB38ACC0081155A /* SnapshotTestCase.swift in Sources */,
 				3F5D0A6F203C9F7D000F907F /* Option.swift in Sources */,
 				3F789E342090F86100367283 /* Snapshotable.swift in Sources */,
@@ -607,8 +607,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FCA69A92059957D00CFE455 /* SnapshotCoordinator.swift in Sources */,
-				3F6B2A231FC1A3AF0006A9ED /* UIImage+Snapshot.swift in Sources */,
 				3F69E4C71FB38ACC0081155A /* SnapshotTestCase.swift in Sources */,
+				3F9A2E4A209707E200979F4F /* UIImage+Compare.swift in Sources */,
 				3F69E4CD1FB38C540081155A /* SnapshotFileManager.swift in Sources */,
 				3F58EB7A2059BBD10044E6E9 /* Option.swift in Sources */,
 				F2E2A9C620934132006DE0A2 /* Snapshotable.swift in Sources */,

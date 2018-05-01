@@ -25,6 +25,7 @@
 //  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+@testable import CocoaPods
 import SnapshotTest
 
 class CocoaPodsTests: SnapshotTestCase {
@@ -85,4 +86,14 @@ class CocoaPodsTests: SnapshotTestCase {
 
         AssertSnapshot(navigationController)
     }
+    
+    func testViewWithStretchedImageViewSnapshot() {
+        // Given
+        let stretchedImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 400, height: 100))
+        stretchedImageView.image = #imageLiteral(resourceName: "goose")
+        
+        // Then
+        AssertSnapshot(stretchedImageView)
+    }
+    
 }

@@ -53,7 +53,7 @@ extension SnapshotCoordinator : SnapshotCoordinating {
         let filename = filenameFormatter.format(functionName: functionName, options: options)
         let referenceImage = try fileManager.referenceImage(filename: filename, className: className)
 
-        guard snapshot.normalizedData() == referenceImage.normalizedData() else {
+        guard snapshot.compare(withImage: referenceImage) else {
             throw SnapshotError.imageMismatch(filename: filename)
         }
     }
