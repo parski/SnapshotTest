@@ -107,7 +107,7 @@ AssertSnapshot(view, options: [.device, .osVersion])
 The following platforms and minimum versions are supported:
 
 * iOS 8.0
-* tvOS 8.0
+* tvOS 9.0
 
 ### Distribution
 Use SnapshotTest by building it and integrating it into your project manually or by using a depencency manager. Currently only CocoaPods is supported with more to come.
