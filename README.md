@@ -64,6 +64,12 @@ class ViewTests: SnapshotTestCase {
 
 The assertion will then record and save a reference image.
 
+To set record mode globally and record all snapshots for every assertion, set the class variable `recordMode` instead.
+
+```swift
+SnapshotTestCase.recordMode = true
+```
+
 To explicitly record a single snapshot you can instead use the `RecordSnapshot()` function:
 
 ```swift
