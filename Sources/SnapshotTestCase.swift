@@ -31,10 +31,16 @@ import XCTest
 open class SnapshotTestCase : XCTestCase {
 
     /**
-     Flag for activating record mode.
+     Flag for activating record mode in the current test case.
      - Note: Tests will always fail in record mode.
      */
     open var recordMode: Bool = false
+    
+    /**
+     Flag for activating record mode for all test cases.
+     - Note: Tests will always fail in record mode.
+     */
+    open static var recordMode: Bool = false
 
     lazy var coordinator: SnapshotCoordinating = {
         return SnapshotCoordinator(className: String(describing: type(of: self)))
@@ -51,7 +57,7 @@ open class SnapshotTestCase : XCTestCase {
      */
     public func AssertSnapshot(_ snapshotable: Snapshotable, options: Options = [], functionName: String = #function, file: StaticString = #file, line: UInt = #line) {
         do {
-            if recordMode {
+            if SnapshotTestCase.recordMode || recordMode {
                 try recordSnapshot(of: snapshotable, options: options, functionName: functionName, file: file, line: line)
             }
             else {
