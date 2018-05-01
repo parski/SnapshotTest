@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="logo.png" width="540">
+	<img src="https://raw.githubusercontent.com/parski/SnapshotTest/master/logo.png" width="540">
 </p>
 
 <p align="center">
@@ -25,7 +25,7 @@ $(SOURCE_ROOT)/$(PROJECT_NAME)Tests/ReferenceImages
 ```
 It should look something like this:
 
-![Test scheme arguments.](reference_image_directory.png)
+![Test scheme arguments.](https://raw.githubusercontent.com/parski/SnapshotTest/master/reference_image_directory.png)
 
 ### Usage
 If you are familiar with **XCTest** using **SnapshotTest** will be a breeze. Instead of subclassing **XCTestCase** you just need to subclass **SnapshotTestCase** and assert the view using `AssertSnapshot()` to test it.
