@@ -40,7 +40,7 @@ open class SnapshotTestCase : XCTestCase {
      Flag for activating record mode for all test cases.
      - Note: Tests will always fail in record mode.
      */
-    open static var recordMode: Bool = false
+    public static var recordMode: Bool = false
 
     lazy var coordinator: SnapshotCoordinating = {
         return SnapshotCoordinator(className: String(describing: type(of: self)))
