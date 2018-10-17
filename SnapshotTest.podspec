@@ -11,4 +11,6 @@ Pod::Spec.new do |s|
   s.source = { :git => "https://github.com/parski/SnapshotTest.git", :tag => s.version.to_s }
   s.source_files = "Sources/**/*"
   s.frameworks = "Foundation", "XCTest"
+  # Workaround for Xcode 10 dynamic library bug: http://ileyf.cn.openradar.appspot.com/43701006
+  s.pod_target_xcconfig = { 'ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES' => 'YES' }
 end
