@@ -49,6 +49,10 @@
 		3F9A2E4A209707E200979F4F /* UIImage+Compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9A2E48209707E200979F4F /* UIImage+Compare.swift */; };
 		3FCA69A82059957D00CFE455 /* SnapshotCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCA69A72059957D00CFE455 /* SnapshotCoordinator.swift */; };
 		3FCA69A92059957D00CFE455 /* SnapshotCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCA69A72059957D00CFE455 /* SnapshotCoordinator.swift */; };
+		5157BCC221416DC10036CED4 /* WrappableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157BCC121416DC10036CED4 /* WrappableTests.swift */; };
+		5157BCC321416DC50036CED4 /* WrappableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157BCC121416DC10036CED4 /* WrappableTests.swift */; };
+		5157BCC521416E9A0036CED4 /* Wrappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157BCC421416E9A0036CED4 /* Wrappable.swift */; };
+		5157BCC621416E9A0036CED4 /* Wrappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157BCC421416E9A0036CED4 /* Wrappable.swift */; };
 		52D6D9871BEFF229002C0205 /* SnapshotTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D6D97C1BEFF229002C0205 /* SnapshotTest.framework */; };
 		DD7502921C690C7A006590AF /* SnapshotTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D6D9F01BEFFFBE002C0205 /* SnapshotTest.framework */; };
 		F2E2A9C620934132006DE0A2 /* Snapshotable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F789E332090F86100367283 /* Snapshotable.swift */; };
@@ -114,6 +118,8 @@
 		3F78EB701FC5FDE300B4A940 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F9A2E48209707E200979F4F /* UIImage+Compare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compare.swift"; sourceTree = "<group>"; };
 		3FCA69A72059957D00CFE455 /* SnapshotCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotCoordinator.swift; sourceTree = "<group>"; };
+		5157BCC121416DC10036CED4 /* WrappableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappableTests.swift; sourceTree = "<group>"; };
+		5157BCC421416E9A0036CED4 /* Wrappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wrappable.swift; sourceTree = "<group>"; };
 		52D6D97C1BEFF229002C0205 /* SnapshotTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapshotTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6D9861BEFF229002C0205 /* SnapshotTest-iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SnapshotTest-iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6D9F01BEFFFBE002C0205 /* SnapshotTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapshotTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				3F58EB742059B0450044E6E9 /* FilenameFormatterTests.swift */,
+				5157BCC121416DC10036CED4 /* WrappableTests.swift */,
 				3F69E4F21FB390630081155A /* SnapshotCoordinatorTests.swift */,
 				3F69E4F11FB390630081155A /* SnapshotFileManagerTests.swift */,
 			);
@@ -285,6 +292,7 @@
 		8933C7811EB5B7E0000D00A4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				5157BCC421416E9A0036CED4 /* Wrappable.swift */,
 				3F5D0A72203CB326000F907F /* FilenameFormatter.swift */,
 				3F5D0A6E203C9F7D000F907F /* Option.swift */,
 				3F5D0A70203CA807000F907F /* Options.swift */,
@@ -583,6 +591,7 @@
 				3F69E4CC1FB38C530081155A /* SnapshotFileManager.swift in Sources */,
 				3F5D0A73203CB326000F907F /* FilenameFormatter.swift in Sources */,
 				3FCA69A82059957D00CFE455 /* SnapshotCoordinator.swift in Sources */,
+				5157BCC521416E9A0036CED4 /* Wrappable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,6 +602,7 @@
 				3F58EB752059B0450044E6E9 /* FilenameFormatterTests.swift in Sources */,
 				3F69E4F41FB390630081155A /* DataHandlerMock.swift in Sources */,
 				3F69E4FA1FB390630081155A /* SnapshotFileManagerMock.swift in Sources */,
+				5157BCC221416DC10036CED4 /* WrappableTests.swift in Sources */,
 				3F66EFDA1FB39392001C54DB /* UIImage+TestHelper.swift in Sources */,
 				3F69E4FE1FB390630081155A /* SnapshotCoordinatorTests.swift in Sources */,
 				3F69E4F81FB390630081155A /* FileManagerMock.swift in Sources */,
@@ -615,6 +625,7 @@
 				3F58EB7020599CC90044E6E9 /* SnapshotError.swift in Sources */,
 				3F58EB7B2059BBD40044E6E9 /* Options.swift in Sources */,
 				3F58EB7C2059BBDA0044E6E9 /* FilenameFormatter.swift in Sources */,
+				5157BCC621416E9A0036CED4 /* Wrappable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,6 +636,7 @@
 				3F58EB762059B0450044E6E9 /* FilenameFormatterTests.swift in Sources */,
 				3F69E4F51FB390630081155A /* DataHandlerMock.swift in Sources */,
 				3F69E4FB1FB390630081155A /* SnapshotFileManagerMock.swift in Sources */,
+				5157BCC321416DC50036CED4 /* WrappableTests.swift in Sources */,
 				3F66EFDB1FB39392001C54DB /* UIImage+TestHelper.swift in Sources */,
 				3F69E4FF1FB390630081155A /* SnapshotCoordinatorTests.swift in Sources */,
 				3F69E4F91FB390630081155A /* FileManagerMock.swift in Sources */,
