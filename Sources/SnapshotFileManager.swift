@@ -115,7 +115,7 @@ extension SnapshotFileManager : SnapshotFileManaging {
         }
 
         let path = try buildAbsolutePath(for: filename, className: className)
-        guard let imagePngData = UIImagePNGRepresentation(referenceImage) else { throw SnapshotFileManagerError.unableToSerializeReferenceImage }
+        guard let imagePngData = referenceImage.pngData() else { throw SnapshotFileManagerError.unableToSerializeReferenceImage }
         try dataHandler.write(imagePngData, to: path, options: .atomicWrite)
     }
 
