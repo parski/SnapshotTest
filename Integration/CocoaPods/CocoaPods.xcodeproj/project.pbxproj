@@ -133,8 +133,6 @@
 				3FC4E3B21FCDDC690025C844 /* Sources */,
 				3FC4E3B31FCDDC690025C844 /* Frameworks */,
 				3FC4E3B41FCDDC690025C844 /* Resources */,
-				A01B33C2B70851CC61DB8CB1 /* [CP] Embed Pods Frameworks */,
-				B1FD5A23CB8C2BE3EA34B4EC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -154,7 +152,6 @@
 				3FC4E3C71FCDDC6A0025C844 /* Frameworks */,
 				3FC4E3C81FCDDC6A0025C844 /* Resources */,
 				9854A963D47BE1DBB0A1E39E /* [CP] Embed Pods Frameworks */,
-				216C2148BB2571CC6C49CEB1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -226,21 +223,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		216C2148BB2571CC6C49CEB1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		458798E36473B6FAD5C2AEA9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -275,36 +257,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A01B33C2B70851CC61DB8CB1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CocoaPods/Pods-CocoaPods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B1FD5A23CB8C2BE3EA34B4EC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CocoaPods/Pods-CocoaPods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B2BA053FC501EEDCF1CCF9AD /* [CP] Check Pods Manifest.lock */ = {
