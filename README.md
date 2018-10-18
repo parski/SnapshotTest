@@ -49,6 +49,10 @@ class ViewTests: SnapshotTestCase {
 Currently **UIView**, **UIViewController** and **CALayer** are supported.
 
 ### Record mode
+Record mode records a snapshot of your view within the current scope and stores it in the reference directory to compare with any subsequent assertions.
+
+#### Test case
+
 To set the test case to record mode simply change the `recordMode` property to true.
 
 ```swift
@@ -64,11 +68,17 @@ class ViewTests: SnapshotTestCase {
 
 The assertion will then record and save a reference image.
 
+#### Global
+
 To set record mode globally and record all snapshots for every assertion, set the class variable `recordMode` instead.
 
 ```swift
 SnapshotTestCase.recordMode = true
 ```
+
+Note that you will probably need to set up a [principal class](#principal-class) to guarantee that record mode is activated before your test suite is run.
+
+#### Statement
 
 To explicitly record a single snapshot you can instead use the `RecordSnapshot()` function:
 
@@ -88,6 +98,33 @@ class ViewTests: SnapshotTestCase {
     
 }
 ```
+
+### Principal class
+
+A principal class is automatically instantiated by `XCTest` when your test bundle is loaded. Think of it as a good place to put a global `setUp()` and `tearDown()`. A simple principal class might look like this:
+
+```swift
+import SnapshotTest
+
+class TestObserver : NSObject {
+
+    override init() {
+        SnapshotTestCase.recordMode = true
+    }
+}
+
+```
+
+In your test bundle's `Info.plist`, add a key value pair:
+
+```
+<key>NSPrincipalClass</key>
+<string>YourAppTests.TestObserver</string>
+```
+
+Where `YourAppTests` is the name of your test bundle.
+
+This will activate record mode globally and is guaranteed to be run before your test suite.
 
 ### Options
 SnapshotTest provides different ways to compare snapshots using several options.
