@@ -50,7 +50,7 @@ class DataHandler : DataHandling {
 }
 
 protocol SnapshotFileManaging {
-    func save(referenceImage: UIImage, filename: String, className: String) throws
+    func save(referenceImage: UIImage, filename: String, className: String) throws -> URL
     func referenceImage(filename: String, className: String) throws -> UIImage
 }
 
@@ -108,7 +108,8 @@ class SnapshotFileManager {
 
 extension SnapshotFileManager : SnapshotFileManaging {
 
-    func save(referenceImage: UIImage, filename: String, className: String) throws {
+    @discardableResult
+    func save(referenceImage: UIImage, filename: String, className: String) throws -> URL {
         guard let referenceImageDirectory = referenceImageDirectory?.appendingPathComponent(className) else { throw SnapshotFileManagerError.unableToDetermineReferenceImageDirectory }
         if fileManager.fileExists(atPath: referenceImageDirectory.absoluteString) == false {
             try fileManager.createDirectory(at: referenceImageDirectory, withIntermediateDirectories: true, attributes: nil)
@@ -117,6 +118,7 @@ extension SnapshotFileManager : SnapshotFileManaging {
         let path = try buildAbsolutePath(for: filename, className: className)
         guard let imagePngData = referenceImage.pngData() else { throw SnapshotFileManagerError.unableToSerializeReferenceImage }
         try dataHandler.write(imagePngData, to: path, options: .atomicWrite)
+        return path
     }
 
     func referenceImage(filename: String, className: String) throws -> UIImage {

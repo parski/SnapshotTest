@@ -29,7 +29,7 @@ import UIKit
 
 protocol SnapshotCoordinating {
     func compareSnapshot(of snapshotable: Snapshotable, options: Options, functionName: String, line: UInt) throws
-    func recordSnapshot(of snapshotable: Snapshotable, options: Options, functionName: String, line: UInt) throws
+    func recordSnapshot(of snapshotable: Snapshotable, options: Options, functionName: String, line: UInt) throws -> URL
 }
 
 struct SnapshotCoordinator {
@@ -57,10 +57,11 @@ extension SnapshotCoordinator : SnapshotCoordinating {
             throw SnapshotError.imageMismatch(filename: filename)
         }
     }
-
-    func recordSnapshot(of snapshotable: Snapshotable, options: Options = [], functionName: String, line: UInt) throws {
+    
+    @discardableResult
+    func recordSnapshot(of snapshotable: Snapshotable, options: Options = [], functionName: String, line: UInt) throws -> URL {
         guard let referenceImage = snapshotable.snapshot() else { throw SnapshotError.unableToTakeSnapshot }
         let filename = filenameFormatter.format(functionName: functionName, options: options)
-        try fileManager.save(referenceImage: referenceImage, filename: filename, className: className)
+        return try fileManager.save(referenceImage: referenceImage, filename: filename, className: className)
     }
 }

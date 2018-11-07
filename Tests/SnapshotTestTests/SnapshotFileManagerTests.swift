@@ -133,6 +133,18 @@ class SnapshotFileManagerTests: XCTestCase {
         XCTAssertEqual(dataHandlerMock.writeInvokeCount, 1)
         XCTAssertEqual(dataHandlerMock.writePathArgument, URL(fileURLWithPath: "/ReferenceImageDirectory/CustomViewTests/testFunctionName.png"))
     }
+    
+    func testSave_withReferenceImageDirectoryDoesExist_shouldReturnPathToSavedFile() throws {
+        // Given
+        processInfo.environment["REFERENCE_IMAGE_DIR"] = "/ReferenceImageDirectory"
+        fileManagerMock.fileExistsReturnValue = true
+        
+        // When
+        let path = try sut.save(referenceImage: testImage, filename: "testFunctionName", className: "CustomViewTests")
+        
+        // Then
+        XCTAssertEqual(path, URL(fileURLWithPath: "/ReferenceImageDirectory/CustomViewTests/testFunctionName.png"))
+    }
 
     // MARK: Reference Image
     
