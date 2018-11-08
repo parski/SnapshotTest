@@ -93,7 +93,14 @@ open class SnapshotTestCase : XCTestCase {
     
     private func recordSnapshot(of snapshotable: Snapshotable, options: Options, functionName: String, file: StaticString, line: UInt) throws {
         let path = try coordinator.recordSnapshot(of: snapshotable, options: options, functionName: functionName, line: line)
-        XCTFail("🔴 RECORD MODE: Reference image saved to: \(path.absoluteString)", file: file, line: line)
+        XCTFail("🔴 RECORD MODE: Reference image saved to \(path.absoluteStringWithoutScheme)", file: file, line: line)
     }
 
+}
+
+fileprivate extension URL {
+    
+    var absoluteStringWithoutScheme: String {
+        return "/" + pathComponents.dropFirst().joined(separator: "/")
+    }
 }
