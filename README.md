@@ -50,6 +50,12 @@ Currently **UIView**, **UIViewController** and **CALayer** are supported.
 
 ### Record mode
 Record mode records a snapshot of your view within the current scope and stores it in the reference directory to compare with any subsequent assertions.
+  
+Note that record mode will fail the test and output the reference image path to the console.
+  
+```
+🔴 RECORD MODE: Reference image saved to /Users/snap/App/AppTests/ReferenceImages/View/testView_withAlteration.png
+```
 
 #### Test case
 
