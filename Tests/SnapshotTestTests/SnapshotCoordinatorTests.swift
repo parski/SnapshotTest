@@ -90,7 +90,6 @@ class SnapshotCoordinatorTests: XCTestCase {
     // MARK: Record Snapshot
 
     func testRecordSnapshot_withRedView_shouldSaveReferenceImageOfViewWithCorrectFilenameAndClassName() throws {
-
         // Given
         let view = redSquareView()
 
@@ -115,14 +114,29 @@ class SnapshotCoordinatorTests: XCTestCase {
             XCTAssertEqual(error as? SnapshotFileManagerError, SnapshotFileManagerError.unableToSerializeReferenceImage)
         }
     }
+    
+    func testRecordSnapshot_withFileManagerReturnsPath_shouldReturnPath() throws {
+        // Given
+        fileManagerMock.saveReturnValue = URL(fileURLWithPath: "/path/to/referenceImage.png")
+        
+        // When
+        let path = try sut.recordSnapshot(of: redSquareView(), functionName: "", line: 0)
+        
+        // Then
+        XCTAssertEqual(path, URL(fileURLWithPath: "/path/to/referenceImage.png"))
+    }
+}
 
+// MARK: - Helpers
+
+extension SnapshotCoordinatorTests {
+    
     private func redSquareView() -> UIView {
         let size = 100 / UIScreen.main.scale
         let view = UIView(frame: CGRect(x: 0, y: 0, width: size, height: size))
         view.backgroundColor = .red
         return view
     }
-    
 }
 
 class FilenameFormattingMock : FilenameFormatting {
