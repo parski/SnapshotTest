@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SnapshotTest"
-  s.version = "2.0.0"
+  s.version = "2.1.0"
   s.summary = "Snapshot testing tool for iOS and tvOS"
   s.description = "SnapshotTest is a simple view testing tool written completely in Swift to aid with development for Apple platforms. It's like unit testing for views."
   s.homepage = "https://github.com/parski/SnapshotTest"
