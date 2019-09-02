@@ -249,7 +249,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/SnapshotTest/SnapshotTest.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -258,7 +258,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B2BA053FC501EEDCF1CCF9AD /* [CP] Check Pods Manifest.lock */ = {
