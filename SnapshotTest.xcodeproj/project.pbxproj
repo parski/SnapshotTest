@@ -1041,6 +1041,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ExampleApp-tvOS.app/ExampleApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};
@@ -1056,6 +1057,7 @@
 				SDKROOT = appletvos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ExampleApp-tvOS.app/ExampleApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};
