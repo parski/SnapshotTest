@@ -11,4 +11,5 @@ Pod::Spec.new do |s|
   s.source = { :git => "https://github.com/parski/SnapshotTest.git", :tag => s.version.to_s }
   s.source_files = "Sources/**/*"
   s.frameworks = "Foundation", "XCTest"
+  s.swift_version = '5'
 end
