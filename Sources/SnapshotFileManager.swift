@@ -50,6 +50,7 @@ class DataHandler : DataHandling {
 }
 
 protocol SnapshotFileManaging {
+    @discardableResult
     func save(referenceImage: UIImage, filename: String, className: String) throws -> URL
     func referenceImage(filename: String, className: String) throws -> UIImage
 }
