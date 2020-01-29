@@ -54,6 +54,7 @@ extension SnapshotCoordinator : SnapshotCoordinating {
         let referenceImage = try fileManager.referenceImage(filename: filename, className: className)
 
         guard snapshot.compare(withImage: referenceImage) else {
+            try fileManager.save(referenceImage: snapshot, filename: filename.failed, className: className)
             throw SnapshotError.imageMismatch(filename: filename)
         }
     }
@@ -63,5 +64,12 @@ extension SnapshotCoordinator : SnapshotCoordinating {
         guard let referenceImage = snapshotable.snapshot() else { throw SnapshotError.unableToTakeSnapshot }
         let filename = filenameFormatter.format(functionName: functionName, options: options)
         return try fileManager.save(referenceImage: referenceImage, filename: filename, className: className)
+    }
+}
+
+fileprivate extension String {
+
+    var failed: String {
+        return "\(self)_failed"
     }
 }

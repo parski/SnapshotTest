@@ -72,6 +72,22 @@ class SnapshotCoordinatorTests: XCTestCase {
             XCTAssertEqual(error as? SnapshotError, SnapshotError.imageMismatch(filename: "redSquare"))
         }
     }
+    
+    func testCompareSnapshot_withViewNotEqualToReferenceImage_shouldInvokeSaveWithFailedSnapshotAndFailedFilenameOnFileManager() {
+
+        // Given
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+        view.backgroundColor = .blue
+        fileManagerMock.referenceImageReturnValue = UIImage(testFilename: "redSquare", ofType: "png")
+
+        // When
+        XCTAssertThrowsError(try sut.compareSnapshot(of: view, options: [], functionName: "redSquare", line: 0)) { error in
+            XCTAssertEqual(fileManagerMock.saveInvokeCount, 1)
+            XCTAssertNotNil(fileManagerMock.saveReferenceImageArgument)
+            XCTAssertEqual(fileManagerMock.saveFilenameArgument, "redSquare_failed")
+            XCTAssertEqual(fileManagerMock.saveClassNameArgument, "CustomButtonTests")
+        }
+    }
 
     func testCompareSnapshot_shouldInvokeReferenceImageWithCorrectFilenameAndClassNameOnFileManager() {
 
